@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#0b0f0c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SwingLab">
+  <title>SwingLab – Golf Swing Analysis</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <!-- ============ LIBRARY ============ -->
+  <section id="view-library" class="view active">
+    <header class="topbar">
+      <div class="brand"><img src="icons/icon.svg" alt=""><h1>SwingLab</h1></div>
+    </header>
+    <div class="lib-actions">
+      <label class="btn primary">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5" fill="currentColor"/></svg> Record
+        <input id="inp-record" type="file" accept="video/*" capture="environment" hidden>
+      </label>
+      <label class="btn">
+        <svg viewBox="0 0 24 24"><path d="M12 4v11m-5-5 5 5 5-5M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Import
+        <input id="inp-import" type="file" accept="video/*" multiple hidden>
+      </label>
+    </div>
+    <ul id="lib-list" class="lib-list"></ul>
+    <div id="lib-empty" class="empty-state">
+      <h2>No swings yet</h2>
+      <p>Record a swing with your camera (use slow-motion for best results) or import one from your library.</p>
+      <p class="small">Everything stays on this device. Tip: add SwingLab to your home screen for a full-screen app.</p>
+    </div>
+  </section>
+
+  <!-- ============ ANALYZER ============ -->
+  <section id="view-analyze" class="view">
+    <header class="topbar">
+      <button id="btn-back" class="icon-btn" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button id="an-title" class="title" title="Tap to rename"></button>
+      <button id="btn-link" class="icon-btn dual-only" aria-label="Link playback" title="Link playback"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <button id="btn-overlay" class="icon-btn dual-only" aria-label="Overlay" title="Overlay videos"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9.5" y="9.5" width="11" height="11" rx="2" fill="currentColor" opacity=".5"/></svg></button>
+      <button id="btn-compare" class="icon-btn" aria-label="Compare" title="Compare with another swing"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="16" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="4" width="8" height="16" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+      <button id="btn-snap" class="icon-btn" aria-label="Snapshot" title="Save frame with drawings"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+    </header>
+
+    <div id="panes" class="panes"></div>
+
+    <div id="opacity-wrap" class="opacity-wrap" hidden>
+      <span>Overlay</span><input id="opacity" type="range" min="10" max="100" value="50">
+    </div>
+
+    <nav class="toolbar" aria-label="Drawing tools">
+      <button class="tool" data-tool="pan" title="Move / zoom (pinch)"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3m3-3 3 3m-3 15-3-3m3 3 3-3M3 12l3-3m-3 3 3 3m15-3-3-3m3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Move</span></button>
+      <button class="tool" data-tool="line" title="Line"><svg viewBox="0 0 24 24"><path d="M5 19 19 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="5" cy="19" r="2" fill="currentColor"/><circle cx="19" cy="5" r="2" fill="currentColor"/></svg><span>Line</span></button>
+      <button class="tool" data-tool="plane" title="Swing plane (extended line)"><svg viewBox="0 0 24 24"><path d="M2 21 22 3" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2.5"/></svg><span>Plane</span></button>
+      <button class="tool" data-tool="angle" title="Angle"><svg viewBox="0 0 24 24"><path d="M19 5 6 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 13.5a6 6 0 0 1 2 5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Angle</span></button>
+      <button class="tool" data-tool="circle" title="Circle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="2.2"/></svg><span>Circle</span></button>
+      <button class="tool" data-tool="rect" title="Box"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="2.2"/></svg><span>Box</span></button>
+      <button class="tool" data-tool="arrow" title="Arrow"><svg viewBox="0 0 24 24"><path d="M5 19 18 6m0 0h-7m7 0v7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Arrow</span></button>
+      <button class="tool" data-tool="free" title="Freehand"><svg viewBox="0 0 24 24"><path d="M4 17c3-6 5 2 8-4s5-5 8-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Draw</span></button>
+      <button class="tool" data-tool="erase" title="Erase (tap a drawing)"><svg viewBox="0 0 24 24"><path d="m4 15 9-9 7 7-6 6H8zM9 19h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Erase</span></button>
+      <span class="sep"></span>
+      <button id="btn-color" title="Color"><i class="swatch"></i><span>Color</span></button>
+      <button id="btn-undo" title="Undo"><svg viewBox="0 0 24 24"><path d="M9 7 4.5 11.5 9 16M5 11.5h9a5 5 0 0 1 0 10h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Undo</span></button>
+      <button id="btn-clear" title="Clear drawings"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Clear</span></button>
+      <button id="btn-grid" title="Grid"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM9.3 4v16M14.7 4v16M4 9.3h16M4 14.7h16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Grid</span></button>
+      <button id="btn-mirror" title="Mirror video"><svg viewBox="0 0 24 24"><path d="M12 3v18M9 6 3 18h6zM15 6l6 12h-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Mirror</span></button>
+      <button id="btn-fit" title="Reset zoom"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Fit</span></button>
+    </nav>
+
+    <div class="transport">
+      <div class="phases">
+        <button class="phase" data-k="address"><span class="pn">Address</span><span class="pt">set</span></button>
+        <button class="phase" data-k="top"><span class="pn">Top</span><span class="pt">set</span></button>
+        <button class="phase" data-k="impact"><span class="pn">Impact</span><span class="pt">set</span></button>
+        <button class="phase" data-k="finish"><span class="pn">Finish</span><span class="pt">set</span></button>
+      </div>
+      <div id="tempo" class="tempo"></div>
+      <div class="timeline">
+        <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Timeline">
+        <div id="ticks" class="ticks"></div>
+      </div>
+      <div id="jog" class="jog" aria-label="Drag to step frames"><span>◀ drag to step frames ▶</span></div>
+      <div class="controls">
+        <button id="btn-speed" class="pill" title="Playback speed">1×</button>
+        <button id="btn-loop" class="pill" title="Loop Address→Finish"><svg viewBox="0 0 24 24"><path d="M17 3l3 3-3 3M20 6H8a4 4 0 0 0-4 4v1M7 21l-3-3 3-3M4 18h12a4 4 0 0 0 4-4v-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button id="btn-back1" class="ctl" aria-label="Previous frame"><svg viewBox="0 0 24 24"><path d="M6 5v14M18 5 9 12l9 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        <button id="btn-play" class="ctl big" aria-label="Play/Pause"></button>
+        <button id="btn-fwd1" class="ctl" aria-label="Next frame"><svg viewBox="0 0 24 24"><path d="M18 5v14M6 5l9 7-9 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+        <div class="readout"><span id="time">0:00.00</span><span id="frame">F0</span></div>
+        <button id="btn-fps" class="pill" title="Frame rate (tap to change)">30fps</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compare picker sheet -->
+  <div id="sheet" class="sheet" hidden>
+    <div class="sheet-body">
+      <div class="sheet-head"><h3>Compare with…</h3><button class="icon-btn sheet-close" aria-label="Close">✕</button></div>
+      <ul id="pick-list" class="lib-list"></ul>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
