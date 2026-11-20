@@ -1,7 +1,7 @@
 name: Deploy to GitHub Pages
 on:
   push:
-    branches: [main]
+    branches: [main, claude/golf-swing-analysis-app-h25scv]
   workflow_dispatch:
 permissions:
   contents: read

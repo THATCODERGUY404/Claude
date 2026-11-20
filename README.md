@@ -27,7 +27,7 @@ python3 -m http.server 8000   # then open http://localhost:8000
 ```
 
 To use it on your phone, host it over **HTTPS**. Installing and offline support need HTTPS.
-The included workflow (`.github/workflows/pages.yml`) deploys to GitHub Pages whenever you push to `main`.
+The included workflow (`.github/workflows/pages.yml`) deploys to GitHub Pages whenever you push to `main` (or the current default branch, `claude/golf-swing-analysis-app-h25scv`).
 Turn it on under *Settings → Pages → Source: GitHub Actions*.
 Then open the URL on your phone and choose *Share → Add to Home Screen* (iOS) or *Install app* (Android).
 
