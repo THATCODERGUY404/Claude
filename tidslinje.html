@@ -2,36 +2,41 @@
 <html lang="sv">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tidslinje mellankrigstiden–WWII</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* VOICE calm study tool for a history test
-   IDEA a revision sheet: one vertical chronology with the era written beside it, and a quiz card that drills it
-   PICTURE the vertical timeline itself, era colours on the spine, plus the progress bar of what you know
-   COLOUR white ground, ink, four era colours blue, ochre, red, teal
+/* VOICE calm, encouraging study app for a history test
+   IDEA a revision kit: read the chronology, see the chains of cause and effect, drill with flashcards
+   PICTURE the vertical era-coloured timeline, the cause chains drawn as linked steps, and one big quiz card
+   COLOUR white ground, ink, era colours blue, ochre, red, teal; green and red only for right and wrong
    TYPE Archivo Narrow for years and headings + Inter for text
-   LAYOUT one centred column (max 820px): title, progress, tabs, filters, timeline or quiz */
+   LAYOUT one 760px column; tabs in the header on desktop, a bottom tab bar on phones */
 :root{color-scheme:light dark;--bg:light-dark(#ffffff,#111317);--ink:light-dark(#16181d,#eceef2);--mute:light-dark(#5d626d,#a3a8b3);--line:light-dark(#e3e5ea,#2b2e36);--panel:light-dark(#f4f5f7,#1b1e24);--ok:light-dark(#137a3e,#5ad48c);--bad:light-dark(#c62828,#ff7a72);--p0:light-dark(#2b59c3,#7ea2ff);--p1:light-dark(#a86f00,#f0b93a);--p2:light-dark(#c62828,#ff7a72);--p3:light-dark(#137a6d,#4fd1bd)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
-.wrap{max-width:820px;margin:0 auto;padding:clamp(20px,4vw,44px) 16px 64px}
-h1,h2,.yr,.q{font-family:"Archivo Narrow",Inter,sans-serif;letter-spacing:-.01em}
-h1{font-size:clamp(30px,5vw,44px);line-height:1.05;margin:0 0 6px;text-wrap:balance}
-.sub{color:var(--mute);margin:0 0 18px;font-size:15px}
-.sub a{color:inherit}
-.prog{display:flex;height:10px;border-radius:99px;overflow:hidden;background:var(--panel);gap:2px}
-.prog div{background:color-mix(in srgb,var(--pc) 22%,var(--panel));position:relative}
+h1,h2,h3,.yr,.q,.big{font-family:"Archivo Narrow",Inter,sans-serif;letter-spacing:-.01em}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 96px}
+header{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:10}
+.hd{max-width:760px;margin:0 auto;padding:14px 16px 0}
+.hrow{display:flex;justify-content:space-between;align-items:center;gap:12px}
+h1{font-size:clamp(22px,3.4vw,28px);line-height:1.1;margin:0}
+.stat{font-size:14px;color:var(--mute);white-space:nowrap;text-align:right}
+.stat b{color:var(--ink)}
+.prog{display:flex;height:6px;border-radius:99px;overflow:hidden;background:var(--panel);gap:2px;margin:10px 0 0}
+.prog div{background:color-mix(in srgb,var(--pc) 20%,var(--panel));position:relative}
 .prog div i{position:absolute;inset:0 auto 0 0;background:var(--pc)}
-.progt{display:flex;justify-content:space-between;font-size:14px;color:var(--mute);margin:6px 0 20px;gap:8px;flex-wrap:wrap}
-.progt b{color:var(--ink)}
-.tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:14px}
-.tabs button{all:unset;cursor:pointer;padding:10px 16px;font-weight:600;border-bottom:3px solid transparent;margin-bottom:-1px}
-.tabs button[aria-selected=true]{border-color:var(--ink)}
-.tabs button:focus-visible{outline:2px solid var(--p0)}
+nav{display:flex;gap:4px;margin-top:6px}
+nav button{all:unset;cursor:pointer;padding:10px 14px;font-weight:600;border-bottom:3px solid transparent;display:flex;gap:6px;align-items:center}
+nav button[aria-selected=true]{border-color:var(--ink)}
+nav button:focus-visible{outline:2px solid var(--p0)}
+nav .badge{font-size:12px;background:var(--bad);color:#fff;border-radius:99px;padding:0 7px;line-height:18px}
+@media(max-width:600px){nav{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);margin:0;padding:0 0 env(safe-area-inset-bottom,0px);z-index:20}nav button{flex:1;justify-content:center;border-bottom:0;border-top:3px solid transparent;padding:12px 0 14px}nav button[aria-selected=true]{border-color:var(--ink)}.hd{padding-bottom:10px}}
+.intro{color:var(--mute);font-size:15px;margin:18px 0 12px}
+.intro a{color:inherit}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .chip{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:99px;border:1px solid var(--line);font-size:14px;font-weight:500;white-space:nowrap}
 .chip .dot{width:9px;height:9px;border-radius:50%;background:var(--pc)}
@@ -39,100 +44,118 @@ h1{font-size:clamp(30px,5vw,44px);line-height:1.05;margin:0 0 6px;text-wrap:bala
 .chip:focus-visible{outline:2px solid var(--p0);outline-offset:2px}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
 select,input[type=search]{font:inherit;font-size:16px;height:40px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);padding:0 10px}
-input[type=search]{flex:1 1 180px}
+input[type=search]{flex:1 1 160px}
 select:focus-visible,input:focus-visible,.btn:focus-visible{outline:2px solid var(--p0);outline-offset:1px}
 .count{font-size:14px;color:var(--mute);margin:4px 0 8px}
 .btn{font:inherit;font-size:15px;font-weight:600;min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);cursor:pointer}
 .btn.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.btn:disabled{opacity:.45;cursor:default}
-/* timeline */
+.btn:disabled{cursor:default}
+/* read */
 .era{margin:22px 0 6px;padding:12px 14px;border-radius:10px;background:color-mix(in srgb,var(--pc) 10%,var(--bg))}
 .era h2{margin:0;font-size:22px;line-height:1.15;color:color-mix(in srgb,var(--pc) 75%,var(--ink))}
 .era p{margin:4px 0 0;font-size:15px}
-.yr{font-size:22px;font-weight:700;margin:14px 0 2px 0;padding-left:30px;position:relative}
+.yr{font-size:22px;font-weight:700;margin:14px 0 2px;padding-left:30px;position:relative;display:flex;gap:10px;align-items:baseline}
+.yr small{font-family:Inter,sans-serif;font-size:13px;font-weight:600;color:var(--mute);letter-spacing:0}
 .yr::before{content:"";position:absolute;left:5px;top:50%;width:12px;height:12px;border-radius:50%;background:var(--bg);border:3px solid var(--pc);transform:translateY(-50%)}
-.list{position:relative}
+.yr.anc::before{background:var(--pc)}
 .ev{position:relative;padding-left:30px}
 .ev::before{content:"";position:absolute;left:10px;top:0;bottom:0;width:3px;background:color-mix(in srgb,var(--pc) 45%,transparent)}
-.ev>button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;grid-template-columns:7.5em minmax(0,1fr) auto;gap:4px 12px;padding:9px 8px;border-radius:8px;align-items:baseline}
-.ev>button:hover{background:var(--panel)}
+.ev>button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;grid-template-columns:7.5em minmax(0,1fr) auto;gap:2px 12px;padding:9px 8px;border-radius:8px;align-items:baseline}
+.ev>button:hover,.ev.open>button{background:var(--panel)}
 .ev>button:focus-visible{outline:2px solid var(--p0)}
 .ev .d{font-size:14px;color:var(--mute);font-weight:600}
 .ev .t{line-height:1.35}
 .ev .t small{display:block;color:var(--mute);font-size:13px}
-.ev .m{font-size:13px;white-space:nowrap;color:var(--mute)}
-.ev .m .k{color:var(--p1)}
-.ev .m .ok{color:var(--ok);font-weight:700}
+.ev .m{font-size:14px;white-space:nowrap}
+.k{color:var(--p1)}.okc{color:var(--ok);font-weight:700}
 .ev.key .t{font-weight:600}
 .hide .ev .d .v{filter:blur(6px);user-select:none}
-.ev.open>button{background:var(--panel)}
-.ev .x{padding:4px 8px 14px calc(7.5em + 20px)}
+.ev .x{padding:2px 8px 14px calc(7.5em + 20px)}
 .ev .x p{margin:6px 0 10px;max-width:62ch}
-.ev .x .btn{min-height:38px;font-size:14px}
+.ev .x .lk{font-size:14px;color:var(--mute);margin:0 0 10px}
+.ev .x .lk button{all:unset;cursor:pointer;color:var(--ink);text-decoration:underline;text-underline-offset:2px}
 .empty{padding:30px 0;color:var(--mute)}
-/* quiz */
+/* chains */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:6px}
+.ccard{all:unset;box-sizing:border-box;cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;background:linear-gradient(90deg,var(--c1),var(--c2)) top/100% 5px no-repeat,var(--bg)}
+.ccard:hover{border-color:var(--ink)}
+.ccard:focus-visible{outline:2px solid var(--p0)}
+.ccard h3{margin:0;font-size:21px;line-height:1.15}
+.ccard span{font-size:14px;color:var(--mute)}
+.chain h2{font-size:clamp(26px,4vw,34px);line-height:1.1;margin:16px 0 4px}
+.chain .lead{color:var(--mute);margin:0 0 14px}
+.step{border:1px solid var(--line);border-left:5px solid var(--pc);border-radius:10px;padding:10px 14px}
+.step .d{font-size:14px;font-weight:700;color:color-mix(in srgb,var(--pc) 75%,var(--ink))}
+.why{display:flex;gap:10px;align-items:flex-start;padding:6px 0 6px 18px;font-size:15px;color:var(--mute)}
+.why::before{content:"↓";font-weight:700;color:var(--ink);font-size:18px;line-height:1.2}
+.hidewhy .why span{filter:blur(5px)}
+.cbar{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+/* practice */
+.start h2{font-size:30px;line-height:1.1;margin:18px 0 6px}
+.start p{margin:0 0 14px;color:var(--mute)}
+.opt{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+.opt:hover{border-color:var(--ink)}
+.opt:focus-visible{outline:2px solid var(--p0)}
+.opt b{display:block;font-size:17px}
+.opt small{color:var(--mute);font-size:14px}
+.opt .go{font-size:20px}
+.opt.rec{border-color:var(--ink);border-width:2px}
+.sec{font-size:14px;font-weight:600;color:var(--mute);margin:18px 0 8px}
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:16px 0 10px}
+.dots{display:flex;gap:4px;flex:1}
+.dots i{flex:1;height:6px;border-radius:99px;background:var(--line)}
+.dots i.r{background:var(--ok)}.dots i.w{background:var(--bad)}.dots i.c{background:var(--ink)}
 .qcard{border:1px solid var(--line);border-radius:14px;padding:clamp(18px,3vw,28px);border-top:6px solid var(--pc)}
 .qmeta{display:flex;justify-content:space-between;gap:8px;font-size:14px;color:var(--mute);flex-wrap:wrap}
 .q{font-size:clamp(24px,4vw,32px);line-height:1.15;margin:10px 0 18px;font-weight:700;text-wrap:balance}
+.ask{font-size:15px;font-weight:600;margin:-8px 0 14px}
 .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.opts.txt{grid-template-columns:1fr}
 .opts .btn{min-height:56px;font-size:20px;font-family:"Archivo Narrow",sans-serif}
-.opts .btn.right{background:var(--ok);border-color:var(--ok);color:#fff;opacity:1}
-.opts .btn.wrong{background:var(--bad);border-color:var(--bad);color:#fff;opacity:1}
+.opts.txt .btn{font:500 16px/1.35 Inter,sans-serif;text-align:left;padding:12px 16px}
+.btn.right{background:var(--ok)!important;border-color:var(--ok)!important;color:#fff!important;opacity:1!important}
+.btn.wrong{background:var(--bad)!important;border-color:var(--bad)!important;color:#fff!important;opacity:1!important}
+.opts .btn:disabled{opacity:.5}
 .ord{display:grid;gap:8px}
 .ord .btn{display:flex;gap:12px;align-items:center;text-align:left;font-weight:500;padding:10px 14px;min-height:56px;line-height:1.3}
+.ord .btn:disabled{opacity:1}
 .ord .n{flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-weight:700}
 .ord .btn.sel .n{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.ord .btn:disabled{opacity:1;cursor:default}
-.opts .btn:disabled{opacity:.55}
-.ord .btn.right{border-color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
-.ord .btn.wrong{border-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
+.ord .btn.ri{border-color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
+.ord .btn.wr{border-color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
 .ord .y{margin-inline-start:auto;font-weight:700;white-space:nowrap}
+.big{font-size:clamp(36px,7vw,52px);font-weight:700;line-height:1;margin:4px 0 8px}
 .fb{margin-top:16px;padding:14px;border-radius:10px;background:var(--panel)}
 .fb b.ok{color:var(--ok)}.fb b.bad{color:var(--bad)}
 .fb p{margin:6px 0 0}
+.tip{font-size:14px;color:var(--mute);margin-top:8px}
+.tip b{color:var(--ink)}
+.rate{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:16px}
+.rate .btn{min-height:52px;font-size:15px;line-height:1.2}
+.rate .b0{border-color:var(--bad);color:var(--bad)}.rate .b2{border-color:var(--ok);color:var(--ok)}
 .qbar{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:16px;flex-wrap:wrap}
-.score{font-size:14px;color:var(--mute)}
 .kbd{font-size:13px;color:var(--mute);margin-top:10px}
+.sum{text-align:center;padding:24px 0}
+.sum .big{font-size:64px}
+.miss{text-align:left;margin:16px 0}
+.miss div{padding:8px 0;border-top:1px solid var(--line)}
+.miss small{color:var(--mute);display:block}
 .note{font-size:13px;color:var(--mute);margin-top:28px;border-top:1px solid var(--line);padding-top:10px}
-@media(max-width:600px){.ev>button{grid-template-columns:minmax(0,1fr) auto}.ev .d{grid-column:1/-1;font-size:13px;margin-bottom:-4px}.ev .x{padding-left:8px}.opts .btn{font-size:18px}.kbd{display:none}}
+@media(max-width:600px){.ev>button{grid-template-columns:minmax(0,1fr) auto}.ev .d{grid-column:1/-1;font-size:13px;margin-bottom:-2px}.ev .x{padding-left:8px}.opts .btn{font-size:18px}.kbd{display:none}.stat .lg{display:none}}
+@media(prefers-reduced-motion:no-preference){.qcard.new{animation:in .18s ease-out}@keyframes in{from{opacity:0;transform:translateY(6px)}}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>Mellankrigstiden och andra världskriget</h1>
-  <p class="sub">Gleerups s. 247–268 och 280–309, från <a href="https://claude.ai/artifact/SxfXJke2EJA6annNGhJ3oo">din tidslinje</a>. Läs i tidslinjen, förhör dig sedan. Det du kan markeras med ✓.</p>
+<header><div class="hd">
+  <div class="hrow"><h1>Mellankrigstiden och andra världskriget</h1><div class="stat"><b id="known">0</b>/<span id="tot"></span> kan<span class="lg"> · ★ <b id="kk">0</b>/<span id="kt"></span></span></div></div>
   <div class="prog" id="prog"></div>
-  <div class="progt"><span>Du kan <b id="known">0</b> av <span id="tot"></span> händelser</span><span id="keyp"></span></div>
-
-  <div class="tabs" role="tablist">
-    <button role="tab" id="tTl" aria-selected="true">Tidslinje</button>
-    <button role="tab" id="tQz" aria-selected="false">Förhör</button>
-  </div>
-
-  <div class="chips" id="eras"></div>
-  <div class="row">
-    <select id="fYear" aria-label="År"></select>
-    <input type="search" id="fQ" placeholder="Sök händelse, land eller person" aria-label="Sök">
-  </div>
-  <div class="chips">
-    <button class="chip" id="fKey" aria-pressed="false">★ Bara det viktigaste</button>
-    <button class="chip" id="fNew" aria-pressed="false">Dölj det jag kan</button>
-    <button class="chip" id="fHide" aria-pressed="false">Dölj årtal</button>
-  </div>
-  <div class="count" id="cnt"></div>
-
-  <section id="vTl"><div class="list" id="list"></div><p class="empty" id="empty" hidden>Inga händelser matchar. <button class="btn" id="clr">Visa alla</button></p></section>
-
-  <section id="vQz" hidden>
-    <div class="chips">
-      <button class="chip" id="mYear" aria-pressed="true">Vilket år?</button>
-      <button class="chip" id="mOrd" aria-pressed="false">Rätt ordning</button>
-    </div>
-    <div id="qbox"></div>
-  </section>
-
-  <p class="note">★ = viktig vändpunkt att kunna säkert. Förklaringarna är skrivna av Claude utifrån allmän historisk kunskap. Jämför med boken inför provet.</p>
-</div>
+  <nav role="tablist">
+    <button role="tab" data-v="las">Läs</button>
+    <button role="tab" data-v="samband">Samband</button>
+    <button role="tab" data-v="ova">Öva <span class="badge" id="due" hidden></span></button>
+  </nav>
+</div></header>
+<div class="wrap" id="app"></div>
 <script>
 {
 const E=[{"d":"1787","c":"USA","t":"USA:s grundlag: bara män får rösta","s":"Bakgrund och 1918–1929","y0":1787,"y1":1787,"x":"USA:s författning skrevs 1787. Den bestämde inte själv vem som fick rösta, det överläts till delstaterna, och i praktiken var det nästan bara vita män, ofta med egendom, som fick rösta."},{"d":"1800-talet","c":"USA","t":"Suffragetterna kämpar för kvinnlig rösträtt","s":"Bakgrund och 1918–1929","y0":1800,"y1":1899,"x":"Under 1800-talet växte rörelsen för kvinnors rösträtt i USA. Ett känt startskott var mötet i Seneca Falls 1848. Kvinnorna demonstrerade, skrev petitioner och krävde samma politiska rättigheter som män."},{"d":"1910-talet","c":"USA","t":"Henry Fords fabrik börjar använda löpande band","s":"Bakgrund och 1918–1929","y0":1910,"y1":1919,"x":"Henry Ford började tillverka T-Forden 1908 och införde 1913 det löpande bandet. Varje arbetare gjorde bara ett moment, vilket gjorde bilarna mycket billigare att producera. Massproduktion blev en symbol för det moderna USA."},{"d":"1910-talet","c":"Japan","t":"Japan erövrar Korea","s":"Bakgrund och 1918–1929","y0":1910,"y1":1919,"x":"Japan ockuperade Korea 1910 och gjorde landet till en koloni som styrdes hårt fram till 1945. Det visar att Japan redan tidigt ville bli en stormakt med ett eget imperium i Asien."},{"d":"1917","c":"Ryssland","t":"Ryska revolutionen; kommunistpartiet med Lenin tar makten","s":"Bakgrund och 1918–1929","y0":1917,"y1":1917,"x":"1917 kom två revolutioner i Ryssland. I februari störtades tsaren och i oktober tog bolsjevikerna (kommunisterna) under Lenin makten. Det ledde till inbördeskrig och till att Sovjetunionen bildades 1922."},{"d":"maj 1918","c":"Tyskland","t":"Marie Juchacz talar på ett politiskt möte i Berlin","s":"Bakgrund och 1918–1929","y0":1918,"y1":1918,"x":"Marie Juchacz var socialdemokratisk politiker och kämpade för kvinnors rättigheter och sociala reformer. Hennes tal och texter används i boken som källa till hur kvinnor tog plats i politiken i slutet av kriget."},{"d":"1918","c":"Europa","t":"Första världskriget tar slut","s":"Bakgrund och 1918–1929","y0":1918,"y1":1918,"x":"Den 11 november 1918 skrevs vapenstilleståndet under och striderna i första världskriget upphörde. Kejsaren i Tyskland hade abdikerat två dagar tidigare. Omkring 17 miljoner människor hade dött i kriget."},{"d":"jan 1919","c":"Tyskland","t":"Politiker samlas i Weimar och inför demokrati: Weimarrepubliken","s":"Bakgrund och 1918–1929","y0":1919,"y1":1919,"x":"Efter kejsarens fall valdes en nationalförsamling som samlades i den lugna staden Weimar, eftersom Berlin var oroligt. Där skrevs en demokratisk författning med allmän rösträtt för både kvinnor och män. Republiken kallas Weimarrepubliken."},{"d":"19 jan 1919","c":"Tyskland","t":"Marie Juchacz håller det första talet av en kvinna i en tysk riksdag","s":"Bakgrund och 1918–1929","y0":1919,"y1":1919,"x":"Den 19 januari 1919 fick tyska kvinnor rösta i ett riksdagsval för första gången. Marie Juchacz valdes in och höll som första kvinna ett tal i den tyska nationalförsamlingen (själva talet hölls i februari 1919). Hon inledde med ”Mina herrar och damer”."},{"d":"1919","c":"Europa","t":"Versaillesfreden; Tyskland ska betala krigsskadestånd","s":"Bakgrund och 1918–1929","y0":1919,"y1":1919,"x":"Freden i Versailles 1919 gav Tyskland skulden för kriget. Tyskland förlorade mark och alla kolonier, fick bara ha en liten armé på 100 000 man och skulle betala stora krigsskadestånd. Många tyskar kände sig förödmjukade."},{"d":"1919–1920-talet","c":"Tyskland","t":"Dolkstötslegenden sprids; politiskt våld och politiska mord","s":"Bakgrund och 1918–1929","y0":1919,"y1":1929,"x":"Dolkstötslegenden var påståendet att den tyska armén inte förlorat kriget utan blivit ”dolkad i ryggen” av socialister, demokrater och judar på hemmaplan. Lögnen spreds av högern och ledde till hat mot republiken, politiskt våld och mord på politiker."},{"d":"1919–1922","c":"Italien","t":"Kris: miljontals strejkar, arbetare tar över fabriker och storjordbruk","s":"Bakgrund och 1918–1929","y0":1919,"y1":1922,"x":"Efter kriget var Italien i kris: arbetslöshet, inflation och besvikelse över freden. Åren 1919–1920 kallas ”de röda åren” då arbetare strejkade och ockuperade fabriker. Många i medelklassen blev rädda för en kommunistisk revolution, vilket gynnade fascisterna."},{"d":"1920","c":"USA","t":"Kvinnor får rösträtt i alla val","s":"Bakgrund och 1918–1929","y0":1920,"y1":1920,"x":"Genom det 19:e tillägget till författningen 1920 fick amerikanska kvinnor rösträtt i alla val. Det var en seger för den långa rösträttsrörelsen."},{"d":"1920-talet","c":"USA","t":"\"Det glada 20-talet\": antalet bilar ökar från 6 till 26 miljoner, el i de flesta hem","s":"Bakgrund och 1918–1929","y0":1920,"y1":1929,"x":"1920-talet kallas ”det glada 20-talet” i USA. Bilen, elektriciteten, radion och jazzen förändrade vardagen. Allt fler köpte varor på avbetalning och konsumtionssamhället växte fram."},{"d":"1920-talet","c":"USA","t":"Jordbrukskris: överproduktion, bönderna får sämre ekonomi; Ku Klux Klan växer i sydstaterna","s":"Bakgrund och 1918–1929","y0":1920,"y1":1929,"x":"Alla fick inte del av välståndet. Bönderna producerade mer än de kunde sälja, priserna föll och många blev skuldsatta. Samtidigt växte Ku Klux Klan, som förföljde svarta, judar, katoliker och invandrare."},{"d":"1920-talet","c":"Sovjet","t":"Privata jordbruk och företag tillåts; utbildningskampanjer och kampanjer mot religionen","s":"Bakgrund och 1918–1929","y0":1920,"y1":1929,"x":"Efter inbördeskriget införde Lenin NEP (den nya ekonomiska politiken) 1921. Bönder och småföretagare fick sälja varor privat igen för att få igång ekonomin. Samtidigt drev staten kampanjer för att lära folket läsa och mot kyrkan."},{"d":"1920-talet","c":"Europa","t":"Allt fler länder blir demokratier med allmän och lika rösträtt","s":"Bakgrund och 1918–1929","y0":1920,"y1":1929,"x":"Efter första världskriget blev många länder i Europa demokratier, ofta med allmän och lika rösträtt för både män och kvinnor. Men flera av demokratierna var unga och svaga."},{"d":"sommaren 1922","c":"Tyskland","t":"Inflationen blir en hyperinflation","s":"Bakgrund och 1918–1929","y0":1922,"y1":1922,"x":"Tyskland tryckte pengar för att betala skulder och skadestånd. Sommaren 1922 skenade priserna så snabbt att det blev hyperinflation, där pengarna förlorade värde från dag till dag."},{"d":"1922","c":"Italien","t":"Mussolini tar makten genom en statskupp","s":"Bakgrund och 1918–1929","y0":1922,"y1":1922,"x":"I oktober 1922 organiserade Mussolini ”marschen mot Rom” med tusentals fascistiska svartskjortor. Kungen vågade inte stoppa dem utan utsåg Mussolini till regeringschef. Det räknas som en statskupp."},{"d":"1923","c":"Tyskland","t":"Hyperinflationen är som värst; sparpengar blir värdelösa","s":"Bakgrund och 1918–1929","y0":1923,"y1":1923,"x":"1923 ockuperade Frankrike Ruhrområdet och inflationen nådde sin topp: i november kostade en dollar omkring 4 200 miljarder mark. Människors sparpengar blev värdelösa och medelklassen förlorade förtroendet för republiken."},{"d":"1923","c":"Tyskland","t":"Hitler försöker göra en statskupp, men den misslyckas; han döms till fängelse och skriver Mein Kampf","s":"Bakgrund och 1918–1929","y0":1923,"y1":1923,"x":"I november 1923 försökte Hitler och nazisterna ta makten i München (ölkällarkuppen). Kuppen slogs ner och Hitler dömdes till fängelse. Där skrev han Mein Kampf, med sina idéer om ras, judehat och ”livsrum” i öst."},{"d":"1924","c":"Sovjet","t":"Lenin dör; efter en maktkamp blir Stalin ny ledare","s":"Bakgrund och 1918–1929","y0":1924,"y1":1924,"x":"Lenin dog i januari 1924. Efter en maktkamp, bland annat mot Trotskij, blev Stalin Sovjetunionens ensamme ledare i slutet av 1920-talet."},{"d":"1925","c":"USA","t":"En T-Ford kostar 300 dollar, så även industriarbetare har råd","s":"Bakgrund och 1918–1929","y0":1925,"y1":1925,"x":"Tack vare massproduktion sjönk priset på T-Forden kraftigt. Även vanliga industriarbetare kunde köpa en bil, vilket förändrade livet i USA."},{"d":"1925","c":"Italien","t":"Alla partier utom fascisterna förbjuds; Mussolini blir \"Il Duce\"","s":"Bakgrund och 1918–1929","y0":1925,"y1":1925,"x":"Efter mordet på socialisten Matteotti 1924 gjorde Mussolini Italien till en diktatur. Alla andra partier förbjöds, pressen censurerades och han kallades ”Il Duce”, ledaren."},{"d":"mitten av 1920-talet","c":"Tyskland","t":"De lugna åren: ekonomin förbättras, lån från USA; Berlin blir Europas nöjeshuvudstad","s":"Bakgrund och 1918–1929","y0":1924,"y1":1926,"x":"Med en ny valuta och lån från USA (Dawesplanen 1924) blev ekonomin bättre. Åren 1924–1929 kallas de gyllene eller lugna åren. Berlin blev känt för nöjesliv, konst och film."},{"d":"mitten av 1920-talet","c":"USA","t":"Aktiepriserna på börsen stiger snabbt","s":"Bakgrund och 1918–1929","y0":1924,"y1":1926,"x":"Många amerikaner köpte aktier, ofta med lånade pengar, och priserna på börsen steg snabbt. Det skapade en spekulationsbubbla."},{"d":"1928","c":"Tyskland","t":"Nazistpartiet får bara 2,6 % av rösterna i riksdagsvalet","s":"Bakgrund och 1918–1929","y0":1928,"y1":1928,"x":"I valet 1928 gick det bra för Tyskland och nazisterna fick bara 2,6 procent av rösterna. De var då ett litet extremistparti."},{"d":"1929","c":"Sovjet","t":"Stalin bestämmer att alla bönder måste gå med i kollektivjordbruk; kampanj mot kulakerna","s":"Bakgrund och 1918–1929","y0":1929,"y1":1929,"x":"Stalin tvingade bönderna att gå samman i stora kollektivjordbruk (kolchoser). De mer välbärgade bönderna, kulakerna, utpekades som fiender och dödades eller deporterades till arbetsläger."},{"d":"sommaren 1929","c":"USA","t":"Industriföretag får problem med försäljningen: överproduktion","s":"Bakgrund och 1918–1929","y0":1929,"y1":1929,"x":"Fabrikerna tillverkade mer än folk kunde köpa och lagren växte. Det var ett tecken på att högkonjunkturen var på väg att ta slut."},{"d":"24 okt 1929","c":"USA","t":"Svarta torsdagen: börskraschen på Wall Street","s":"Bakgrund och 1918–1929","y0":1929,"y1":1929,"x":"Torsdagen den 24 oktober 1929 föll aktiekurserna kraftigt på Wall Street i New York, och kraschen fortsatte de följande dagarna. Banker och företag gick i konkurs och den stora depressionen spred sig över världen."},{"d":"1930","c":"Tyskland","t":"Nazisterna får 18 % av rösterna","s":"1930–1938","y0":1930,"y1":1930,"x":"Depressionen slog hårt mot Tyskland eftersom landet var beroende av lån från USA. Arbetslösheten steg och i valet 1930 fick nazisterna 18 procent av rösterna."},{"d":"1930-talet","c":"Sovjet","t":"Femårsplaner och planekonomi; satsning på tung industri","s":"1930–1938","y0":1930,"y1":1939,"x":"Stalin införde femårsplaner där staten bestämde vad som skulle produceras. Han satsade på tung industri som stål, kol och maskiner. Industrin växte snabbt, men till ett högt pris i form av tvångsarbete och nöd."},{"d":"1931","c":"Asien","t":"Japan tar Manchuriet i norra Kina och lämnar Nationernas förbund","s":"1930–1938","y0":1931,"y1":1931,"x":"1931 ockuperade Japan Manchuriet i norra Kina och gjorde det till lydstaten Manchukuo. När Nationernas förbund kritiserade Japan lämnade landet förbundet. Det visade hur svagt NF var."},{"d":"1932","c":"USA","t":"13 miljoner arbetslösa; Roosevelt väljs till president och startar New Deal","s":"1930–1938","y0":1932,"y1":1932,"x":"Under depressionen var omkring 13 miljoner amerikaner arbetslösa. Franklin D. Roosevelt vann valet 1932 och lovade en ”New Deal”: staten satsade på offentliga arbeten, stöd till bönder och senare pensioner och socialförsäkringar."},{"d":"1932","c":"Tyskland","t":"Sex miljoner arbetslösa; hösten 1932 blir nazisterna största parti med 33 %","s":"1930–1938","y0":1932,"y1":1932,"x":"I Tyskland var sex miljoner arbetslösa. Nazisterna lovade arbete och ett starkt Tyskland och blev största parti 1932. I valet i november fick de 33 procent."},{"d":"1932–1934","c":"Sovjet","t":"Holodomor, den stora svälten i Ukraina","s":"1930–1938","y0":1932,"y1":1934,"x":"Tvångskollektiviseringen och stora krav på spannmål ledde till svält i Ukraina. Miljontals människor dog. Ukrainarna kallar svälten Holodomor, ”död genom svält”."},{"d":"jan 1933","c":"Tyskland","t":"Hitler blir regeringschef","s":"1930–1938","y0":1933,"y1":1933,"x":"Den 30 januari 1933 utnämnde president Hindenburg Hitler till rikskansler (regeringschef). Konservativa politiker trodde att de skulle kunna kontrollera honom."},{"d":"1933","c":"Tyskland","t":"Riksdagshusbranden; kommunistpartiet förbjuds; fullmaktslagen ger nazisterna all makt","s":"1930–1938","y0":1933,"y1":1933,"x":"I februari 1933 brann riksdagshuset. Nazisterna skyllde på kommunisterna och förbjöd partiet. I mars antogs fullmaktslagen som gav regeringen rätt att stifta lagar utan riksdagen."},{"d":"våren 1933","c":"Tyskland","t":"De första koncentrationslägren öppnas, bland dem Dachau; judar med statlig tjänst avskedas","s":"1930–1938","y0":1933,"y1":1933,"x":"De första koncentrationslägren, till exempel Dachau, öppnades för politiska motståndare. Judar som var statligt anställda avskedades och nazisterna uppmanade till bojkott av judiska affärer."},{"d":"juli 1933","c":"Tyskland","t":"Alla partier utom nazistpartiet förbjuds; Tyskland är en diktatur","s":"1930–1938","y0":1933,"y1":1933,"x":"I juli 1933 förbjöds alla partier utom nazistpartiet. Fackföreningar hade redan krossats och pressen censurerades. Tyskland var nu en diktatur med Hitler som ledare."},{"d":"1934","c":"Tyskland","t":"Leni Riefenstahl filmar partidagarna i Nürnberg","s":"1930–1938","y0":1934,"y1":1934,"x":"Leni Riefenstahl gjorde propagandafilmen ”Viljans triumf” om nazisternas partidagar i Nürnberg 1934. Filmen visade Hitler som en nästan gudalik ledare och användes för att påverka folket."},{"d":"mitten av 1930-talet","c":"Sovjet","t":"Svälten minskar; industrin växer","s":"1930–1938","y0":1934,"y1":1936,"x":"Efter svältåren började läget förbättras och industrin fortsatte att växa. Men samtidigt började Stalin förfölja verkliga och inbillade fiender allt hårdare."},{"d":"1935","c":"Tyskland","t":"Nürnberglagarna: judar är inte längre medborgare","s":"1930–1938","y0":1935,"y1":1935,"x":"Nürnberglagarna 1935 gjorde att judar inte längre var tyska medborgare. Judar och icke-judar fick inte gifta sig med varandra. Lagarna byggde på nazisternas rasläran."},{"d":"1935","c":"Afrika","t":"Italien anfaller Etiopien (Abessinien) med bombflyg och stridsgas","s":"1930–1938","y0":1935,"y1":1935,"x":"Italien anföll Etiopien 1935 för att skapa ett imperium i Afrika. Italienarna använde bombflyg och giftgas mot civila. Nationernas förbund införde svaga sanktioner som inte stoppade kriget."},{"d":"maj 1935","c":"USA","t":"Ögonläkaren Martinez Santos kritiserar New Deal i en intervju","s":"1930–1938","y0":1935,"y1":1935,"x":"Ett exempel i boken på kritik mot New Deal. Kritiker menade att staten blev för stor och styrde för mycket, medan andra tyckte att reformerna inte gick tillräckligt långt."},{"d":"1936","c":"Tyskland","t":"Tyska trupper går in i Rhenlandet; allmän värnplikt och upprustning","s":"1930–1938","y0":1936,"y1":1936,"x":"Hitler bröt mot Versaillesfreden genom att återinföra värnplikten och rusta upp. 1936 skickade han trupper in i det demilitariserade Rhenlandet. Storbritannien och Frankrike reagerade inte."},{"d":"sommaren 1936","c":"Sovjet","t":"Den första Moskvarättegången; fler följer de närmaste åren","s":"1930–1938","y0":1936,"y1":1936,"x":"I Moskvarättegångarna anklagades gamla ledande kommunister för förräderi. De tvingades erkänna brott de inte begått och avrättades. Det var en del av den stora terrorn."},{"d":"1936","c":"Spanien","t":"Spanska inbördeskriget börjar; Franco gör uppror","s":"1930–1938","y0":1936,"y1":1936,"x":"I juli 1936 gjorde general Franco uppror mot den vänsterregering som vunnit valet. Tyskland och Italien hjälpte Franco, Sovjet hjälpte regeringssidan och frivilliga från många länder stred i de internationella brigaderna."},{"d":"okt–nov 1936","c":"USA","t":"Roosevelt håller tal i New York och väljs om","s":"1930–1938","y0":1936,"y1":1936,"x":"Roosevelt försvarade New Deal i ett känt tal i New York och vann presidentvalet 1936 med stor marginal. Det visade att många amerikaner stödde hans politik."},{"d":"1937","c":"Sovjet","t":"Stalin håller tal","s":"1930–1938","y0":1937,"y1":1937,"x":"Under den stora terrorn 1937–1938 talade Stalin om ”folkfiender” och spioner som måste rensas ut. Hundratusentals människor avrättades och miljontals skickades till arbetslägren i Gulag."},{"d":"april 1937","c":"Spanien","t":"Tyska flygplan bombar Guernica","s":"1930–1938","y0":1937,"y1":1937,"x":"Den 26 april 1937 bombade tyska flygplan i Kondorlegionen staden Guernica i Baskien. Många civila dödades. Picasso målade sin berömda tavla Guernica som en protest mot kriget."},{"d":"sommaren 1937","c":"Asien","t":"Japan anfaller Kina igen och tar Shanghai och Nanjing","s":"1930–1938","y0":1937,"y1":1937,"x":"Sommaren 1937 inledde Japan ett fullskaligt krig mot Kina. Japanerna tog storstäderna Shanghai och Nanjing efter hårda strider."},{"d":"1937","c":"Asien","t":"Nanjingmassakern (en vanlig uppgift är 300 000 döda)","s":"1930–1938","y0":1937,"y1":1937,"x":"När japanska soldater intog Nanjing i december 1937 mördade och våldtog de civila och fångar under flera veckor. En vanlig uppgift är omkring 300 000 döda."},{"d":"1937","c":"USA","t":"Ekonomin är på väg upp igen","s":"1930–1938","y0":1937,"y1":1937,"x":"Ekonomin i USA blev bättre, men en ny nedgång kom 1937–1938. Det var först med upprustningen inför kriget som arbetslösheten verkligen försvann."},{"d":"sommaren 1938","c":"USA","t":"Ekonomin är definitivt på uppgång","s":"1930–1938","y0":1938,"y1":1938,"x":"Under 1938 började ekonomin återhämta sig igen. Boken visar att New Deal och senare krigsproduktionen fick fart på ekonomin."},{"d":"mars 1938","c":"Österrike","t":"\"Anslutningen\": tyska trupper tar Österrike","s":"1930–1938","y0":1938,"y1":1938,"x":"I mars 1938 marscherade tyska trupper in i Österrike, som anslöts till Tyskland (Anschluss). Många österrikare jublade och en folkomröstning efteråt gav nästan 100 procent ja."},{"d":"juli 1938","c":"Världen","t":"Evian-konferensen om judiska flyktingar blir ett fiasko","s":"1930–1938","y0":1938,"y1":1938,"x":"32 länder träffades i Evian i Frankrike för att diskutera de judiska flyktingarna från Tyskland och Österrike. Nästan inget land ville ta emot fler flyktingar, så konferensen blev ett misslyckande."},{"d":"sep 1938","c":"Europa","t":"Münchenöverenskommelsen: Tyskland får Sudetlandet","s":"1930–1938","y0":1938,"y1":1938,"x":"I München gick Storbritannien och Frankrike med på att Tyskland fick ta Sudetlandet från Tjeckoslovakien. Tjeckoslovakien var inte inbjudet. Chamberlain trodde att han räddat freden, så kallad eftergiftspolitik."},{"d":"9–10 nov 1938","c":"Tyskland","t":"Kristallnatten (Novemberpogromen)","s":"1930–1938","y0":1938,"y1":1938,"x":"Natten mellan 9 och 10 november 1938 attackerade nazister judar i hela Tyskland. Synagogor brändes, butiker förstördes, minst 90 judar dödades och omkring 30 000 judiska män skickades till koncentrationsläger."},{"d":"slutet av 1930-talet","c":"Europa","t":"Bara 13 länder i Europa är demokratier","s":"1930–1938","y0":1937,"y1":1939,"x":"Många av de nya demokratierna från 1920-talet hade blivit diktaturer. I slutet av 1930-talet fanns bara 13 demokratier kvar i Europa."},{"d":"mars 1939","c":"Tjeckoslovakien","t":"Hitler bryter Münchenöverenskommelsen och tar hela landet","s":"1939–1941","y0":1939,"y1":1939,"x":"I mars 1939 ockuperade Tyskland resten av Tjeckoslovakien. Det visade att Hitler inte bara ville samla tysktalande områden och att eftergiftspolitiken hade misslyckats."},{"d":"våren 1939","c":"Europa","t":"Storbritannien och Frankrike lovar att hjälpa Polen","s":"1939–1941","y0":1939,"y1":1939,"x":"Efter ockupationen av Tjeckoslovakien lovade Storbritannien och Frankrike att försvara Polen om landet blev anfallet. Det var nästa land Hitler hade krav på."},{"d":"1939","c":"Spanien","t":"Franco vinner inbördeskriget och blir \"El Caudillo\"","s":"1939–1941","y0":1939,"y1":1939,"x":"Franco vann inbördeskriget i april 1939 och blev diktator med titeln ”El Caudillo”, ledaren. Han styrde Spanien ända till sin död 1975."},{"d":"23 aug 1939","c":"Europa","t":"Molotov–Ribbentrop-pakten mellan Tyskland och Sovjet","s":"1939–1941","y0":1939,"y1":1939,"x":"Nazityskland och det kommunistiska Sovjet slöt en icke-angreppspakt. I ett hemligt tillägg delade de upp Östeuropa mellan sig. Pakten gjorde det möjligt för Hitler att anfalla Polen."},{"d":"1 sep 1939","c":"Polen","t":"Tyskland anfaller Polen; andra världskriget börjar","s":"1939–1941","y0":1939,"y1":1939,"x":"Den 1 september 1939 anföll Tyskland Polen med blixtkrig: snabba anfall med stridsvagnar och flyg. Det räknas som början på andra världskriget i Europa."},{"d":"3 sep 1939","c":"Europa","t":"Storbritannien och Frankrike förklarar krig mot Tyskland","s":"1939–1941","y0":1939,"y1":1939,"x":"Två dagar efter anfallet på Polen förklarade Storbritannien och Frankrike krig mot Tyskland. De kunde dock inte hjälpa Polen i praktiken, och på västfronten hände länge nästan ingenting."},{"d":"18 sep 1939","c":"Polen","t":"Sovjet går in i östra Polen; Polen ger upp och regeringen flyr till London","s":"1939–1941","y0":1939,"y1":1939,"x":"Enligt den hemliga delen av pakten gick Sovjet in i östra Polen (från den 17 september). Polen delades mellan Tyskland och Sovjet. Den polska regeringen bildade en exilregering, som från 1940 fanns i London."},{"d":"1939–1940","c":"Baltikum","t":"Sovjet tvingar Estland, Lettland och Litauen att ta emot baser; inom ett år är de ockuperade","s":"1939–1941","y0":1939,"y1":1940,"x":"Sovjet tvingade de baltiska länderna att låta sovjetiska trupper ha baser där. Sommaren 1940 ockuperades och annekterades Estland, Lettland och Litauen, och tiotusentals deporterades till Sibirien."},{"d":"slutet av nov 1939","c":"Finland","t":"Sovjet anfaller: finska vinterkriget börjar","s":"1939–1941","y0":1939,"y1":1939,"x":"Den 30 november 1939 anföll Sovjet Finland. Finnarna gjorde hårt motstånd i kylan och Sovjet fick stora förluster."},{"d":"mars 1940","c":"Finland","t":"Finland ber om fred och förlorar områden i öster","s":"1939–1941","y0":1940,"y1":1940,"x":"I mars 1940 slöts fred i Moskva. Finland behöll sin självständighet men fick lämna ifrån sig stora delar av Karelen."},{"d":"9 april 1940","c":"Danmark, Norge","t":"Tyskland anfaller; Danmark ockuperas utan strid, Blücher sänks i Oslofjorden","s":"1939–1941","y0":1940,"y1":1940,"x":"Den 9 april 1940 anföll Tyskland Danmark och Norge. Danmark gav upp samma dag. I Oslofjorden sänktes det tyska krigsfartyget Blücher, vilket gav den norska kungen och regeringen tid att fly från Oslo."},{"d":"11 april 1940","c":"Norge","t":"Kung Haakon och kronprins Olav flyr från Nybergsund","s":"1939–1941","y0":1940,"y1":1940,"x":"Tyskarna krävde att kungen skulle godkänna en ny regering. Kung Haakon vägrade och tyska flygplan bombade Nybergsund där han befann sig. Kungen och kronprinsen klarade sig och flydde vidare."},{"d":"april–juni 1940","c":"Norge","t":"Två månaders strider; kungen och regeringen flyr till London; Quisling hjälper tyskarna","s":"1939–1941","y0":1940,"y1":1940,"x":"Norge stred i två månader, bland annat vid Narvik. I juni flydde kungen och regeringen till London. Vidkun Quisling samarbetade med tyskarna och hans namn blev ett ord för förrädare."},{"d":"10 maj 1940","c":"Västeuropa","t":"Tyskland anfaller Nederländerna och Belgien och sedan Frankrike","s":"1939–1941","y0":1940,"y1":1940,"x":"Den 10 maj 1940 anföll Tyskland Nederländerna, Belgien och Luxemburg och sedan Frankrike. Tyska stridsvagnar tog sig genom Ardennerna och överraskade de allierade."},{"d":"maj 1940","c":"Storbritannien","t":"Chamberlain avgår; Churchill blir premiärminister","s":"1939–1941","y0":1940,"y1":1940,"x":"Den 10 maj 1940 avgick Neville Chamberlain, som stått för eftergiftspolitiken. Winston Churchill blev ny premiärminister och lovade att aldrig ge upp."},{"d":"13 maj 1940","c":"Storbritannien","t":"Churchills tal: \"blod, möda, tårar och svett\"","s":"1939–1941","y0":1940,"y1":1940,"x":"I sitt första tal som premiärminister sa Churchill att han inte hade något annat att erbjuda än ”blod, möda, tårar och svett”. Talet skulle ge britterna mod att fortsätta kriget."},{"d":"maj–juni 1940","c":"Frankrike","t":"Armén vid Dunkerque tar sig över till Storbritannien","s":"1939–1941","y0":1940,"y1":1940,"x":"Den brittiska armén och franska soldater blev inringade vid Dunkerque. Med krigsfartyg och hundratals små civila båtar räddades omkring 338 000 soldater över till Storbritannien."},{"d":"juni 1940","c":"Frankrike","t":"Frankrike besegras efter sex veckor; norra delen ockuperas, södra delen styrs av Vichyregimen","s":"1939–1941","y0":1940,"y1":1940,"x":"Efter bara sex veckor gav Frankrike upp i juni 1940. Norra Frankrike ockuperades av Tyskland och i söder styrde marskalk Pétain Vichyregimen, som samarbetade med tyskarna."},{"d":"juni 1940","c":"Italien","t":"Italien går in i kriget på Hitlers sida","s":"1939–1941","y0":1940,"y1":1940,"x":"När Frankrike nästan var besegrat förklarade Mussolini krig mot Frankrike och Storbritannien den 10 juni 1940. Italien ville få del av segern."},{"d":"1940","c":"Storbritannien","t":"Slaget om Storbritannien börjar med anfall mot flygplatser","s":"1939–1941","y0":1940,"y1":1940,"x":"Sommaren 1940 försökte det tyska flygvapnet slå ut det brittiska för att kunna invadera Storbritannien. Först anfölls flygplatser och radarstationer. Britterna hade radar och snabba jaktplan och höll stånd."},{"d":"20 aug 1940","c":"Storbritannien","t":"Churchills tacktal till piloterna: \"Aldrig i krigshistorien har så många…\"","s":"1939–1941","y0":1940,"y1":1940,"x":"Churchill hyllade de brittiska jaktpiloterna: ”Aldrig i krigshistorien har så många haft så få att tacka för så mycket.” Talet blev ett av krigets mest kända citat."},{"d":"hösten 1940","c":"Storbritannien","t":"Blitzen: bomber mot London och andra städer","s":"1939–1941","y0":1940,"y1":1940,"x":"När Tyskland inte vann i luften började de bomba London och andra städer, ofta nattetid. Bombningarna kallas Blitzen. Londonborna sov i skyddsrum och i tunnelbanan."},{"d":"29 sep 1940","c":"Asien","t":"Japan sluter en pakt med Italien och Tyskland","s":"1939–1941","y0":1940,"y1":1940,"x":"Japan, Tyskland och Italien slöt trepartspakten (undertecknad i Berlin i slutet av september 1940). De lovade att hjälpa varandra, och länderna kallades axelmakterna."},{"d":"hösten 1940","c":"Östeuropa","t":"Ungern, Bulgarien och Rumänien blir bundsförvanter till axelmakterna","s":"1939–1941","y0":1940,"y1":1940,"x":"Ungern, Rumänien och senare Bulgarien anslöt sig till axelmakterna. De hoppades vinna land eller skydd mot Sovjet."},{"d":"1940–1941","c":"Balkan, Nordafrika","t":"Italien anfaller men misslyckas; Tyskland erövrar Jugoslavien och Grekland","s":"1939–1941","y0":1940,"y1":1941,"x":"Italien anföll Grekland och brittiska Egypten men misslyckades. Tyskland fick hjälpa till och erövrade Jugoslavien och Grekland våren 1941."},{"d":"årsskiftet 1940–1941","c":"Europa","t":"Bara Storbritannien gör fortfarande motstånd mot Tyskland","s":"1939–1941","y0":1940,"y1":1941,"x":"Vid årsskiftet 1940–1941 var Storbritannien, med stöd från sitt imperium, det enda större landet i Europa som fortfarande stred mot Tyskland."},{"d":"1941","c":"Nordafrika","t":"Hårda strider mellan brittiska och tysk-italienska trupper börjar","s":"1939–1941","y0":1941,"y1":1941,"x":"Tyskland skickade Afrikakåren under general Rommel för att hjälpa italienarna. I Libyen och Egypten följde hårda strider om Suezkanalen och oljan i Mellanöstern."},{"d":"maj 1941","c":"Storbritannien","t":"Blitzen upphör; 40 000 döda i London","s":"1939–1941","y0":1941,"y1":1941,"x":"I maj 1941 slutade de stora bombningarna när Tyskland förberedde anfallet på Sovjet. Enligt boken hade 40 000 människor dött i London."},{"d":"juni 1941 (midsommar)","c":"Sovjet","t":"Operation Barbarossa: Tyskland anfaller Sovjet","s":"1939–1941","y0":1941,"y1":1941,"x":"Den 22 juni 1941 anföll Tyskland Sovjetunionen med omkring tre miljoner soldater. Hitler ville ha ”livsrum” och krossa kommunismen. Tyskarna nådde nästan Moskva men stoppades i december."},{"d":"1941","c":"Finland","t":"Fortsättningskriget: Finland strider som Tysklands \"medkrigförande\"","s":"1939–1941","y0":1941,"y1":1941,"x":"Finland gick med i kriget mot Sovjet för att ta tillbaka det som förlorats i vinterkriget. Finland kallade sig ”medkrigförande” och inte allierad med Tyskland."},{"d":"1941","c":"Sovjet","t":"Insatsgrupper börjar skjuta judar i massor","s":"1939–1941","y0":1941,"y1":1941,"x":"Bakom fronten i Sovjet sköt tyska insatsgrupper judar, kommunister och andra i stora massavrättningar. I Babij Jar utanför Kiev mördades över 33 000 judar på två dagar i september 1941."},{"d":"juli 1941","c":"Asien","t":"Japan tar Franska Indokina (Vietnam, Laos, Kambodja)","s":"1939–1941","y0":1941,"y1":1941,"x":"Japan tog Franska Indokina för att få råvaror och baser. USA svarade med att stoppa all export av olja till Japan."},{"d":"7 dec 1941","c":"USA","t":"Japan anfaller Pearl Harbor","s":"1939–1941","y0":1941,"y1":1941,"x":"Söndagen den 7 december 1941 anföll japanska flygplan den amerikanska flottbasen Pearl Harbor på Hawaii. Över 2 400 amerikaner dödades och flera slagskepp sänktes."},{"d":"8 dec 1941","c":"USA","t":"USA förklarar krig mot Japan; Japan anfaller mål i Sydostasien","s":"1939–1941","y0":1941,"y1":1941,"x":"Roosevelt kallade 7 december ”en dag som kommer att leva i vanära”. USA förklarade krig mot Japan, som samtidigt anföll Filippinerna, Malackahalvön och Hongkong."},{"d":"11 dec 1941","c":"USA","t":"Tyskland förklarar krig mot USA; de allierade (USA, Storbritannien, Sovjet) står mot axelmakterna","s":"1939–1941","y0":1941,"y1":1941,"x":"Hitler förklarade krig mot USA den 11 december. Nu var kriget ett världskrig: de allierade (USA, Storbritannien och Sovjet) mot axelmakterna (Tyskland, Italien och Japan)."},{"d":"början av 1942","c":"Världen","t":"Axelmakterna kontrollerar stora delar av världen; Japan hotar Australien och Indien","s":"1942–1946 och efter kriget","y0":1942,"y1":1942,"x":"I början av 1942 var axelmakterna som starkast. Japan hade tagit Singapore, Filippinerna och Nederländska Ostindien och hotade Australien och Indien."},{"d":"1942","c":"Europa","t":"Den slutgiltiga lösningen: judar förs med tåg till förintelseläger och mördas i gaskamrar","s":"1942–1946 och efter kriget","y0":1942,"y1":1942,"x":"Vid Wannseekonferensen i januari 1942 planerades hur alla Europas judar skulle mördas. Judar transporterades med tåg till förintelseläger som Treblinka, Sobibor och Auschwitz-Birkenau och gasades ihjäl."},{"d":"från 1942","c":"Tyskland","t":"Brittiska bombplan börjar bomba tyska städer","s":"1942–1946 och efter kriget","y0":1942,"y1":1945,"x":"Från 1942 bombade britterna, och senare även amerikanerna, tyska städer i stora flyganfall. Målet var att förstöra industrin och knäcka tyskarnas moral."},{"d":"sommaren 1942","c":"Polen","t":"SS-officeren Kurt Gerstein besöker förintelselägret Belzec","s":"1942–1946 och efter kriget","y0":1942,"y1":1942,"x":"Kurt Gerstein var SS-officer som såg en gasning i förintelselägret Belzec. Han berättade om det för en svensk diplomat och skrev senare en rapport, Gersteinrapporten, som är en viktig källa."},{"d":"1942","c":"Nordafrika","t":"Slaget vid el-Alamein: britterna stoppar tyskarna och tar sedan hela Nordafrika","s":"1942–1946 och efter kriget","y0":1942,"y1":1942,"x":"Vid el-Alamein i Egypten stoppade britterna under general Montgomery Rommels armé hösten 1942. Efter det drevs axelmakterna ut ur Nordafrika och gav upp i Tunisien i maj 1943."},{"d":"1942–1943","c":"Sovjet","t":"Slaget vid Stalingrad","s":"1942–1946 och efter kriget","y0":1942,"y1":1943,"x":"Slaget om Stalingrad pågick från augusti 1942 till februari 1943. Det var ett av krigets blodigaste slag, med strider om varje hus och gata."},{"d":"nov 1942","c":"Sovjet","t":"Sovjet går till motanfall vid Stalingrad","s":"1942–1946 och efter kriget","y0":1942,"y1":1942,"x":"I november 1942 gick Röda armén till motanfall och ringade in den tyska sjätte armén i Stalingrad."},{"d":"jan 1943","c":"Sovjet","t":"Tyska armén kapitulerar i Stalingrad, en vändpunkt i kriget","s":"1942–1946 och efter kriget","y0":1943,"y1":1943,"x":"Den inringade tyska armén gav upp i slutet av januari och början av februari 1943. Omkring 90 000 tyskar togs till fånga. Efter Stalingrad var Tyskland på reträtt i öst."},{"d":"29 jan 1943","c":"Polen","t":"SS-rapport från Auschwitz om krematorium II","s":"1942–1946 och efter kriget","y0":1943,"y1":1943,"x":"En SS-rapport från Auschwitz handlade om bygget av krematorium II med en gaskammare. Dokumentet är en källa som visar hur förintelsen planerades som en industriell process."},{"d":"1943","c":"Italien","t":"De allierade går från Nordafrika till Sicilien och vidare mot Rom","s":"1942–1946 och efter kriget","y0":1943,"y1":1943,"x":"Sommaren 1943 landsteg de allierade på Sicilien och gick sedan upp genom Italien. Striderna var hårda och Rom befriades först i juni 1944."},{"d":"sommaren 1943","c":"Tyskland","t":"Stora delar av Hamburg förstörs av bomber","s":"1942–1946 och efter kriget","y0":1943,"y1":1943,"x":"Sommaren 1943 bombade de allierade Hamburg. Bomberna orsakade en eldstorm och omkring 35 000–40 000 människor dog."},{"d":"1943","c":"Italien","t":"Mussolini avsätts och arresteras","s":"1942–1946 och efter kriget","y0":1943,"y1":1943,"x":"I juli 1943 avsattes Mussolini och greps på kungens order. Tyska fallskärmssoldater befriade honom senare och han fick leda en lydstat i norra Italien."},{"d":"hösten 1943","c":"Italien","t":"Italiens nya regering byter sida till de allierade","s":"1942–1946 och efter kriget","y0":1943,"y1":1943,"x":"Den nya italienska regeringen slöt vapenstillestånd med de allierade i september 1943 och förklarade sedan krig mot Tyskland. Tyskland ockuperade då norra och mellersta Italien."},{"d":"1 dec 1943","c":"Polen","t":"Rudolf Höss slutar övervaka avrättningarna i Auschwitz","s":"1942–1946 och efter kriget","y0":1943,"y1":1943,"x":"Rudolf Höss var kommendant i Auschwitz och ansvarade för mordet på över en miljon människor. I slutet av 1943 fick han en annan tjänst, men han återvände 1944 för att leda mordet på de ungerska judarna."},{"d":"1944","c":"Ungern","t":"Raoul Wallenberg räddar tusentals judar i Budapest med skyddspass","s":"1942–1946 och efter kriget","y0":1944,"y1":1944,"x":"Den svenske diplomaten Raoul Wallenberg kom till Budapest 1944. Han delade ut svenska skyddspass och ordnade skyddade hus, och räddade på så sätt tusentals judar."},{"d":"6 juni 1944","c":"Frankrike","t":"D-dagen: invasionen i Normandie","s":"1942–1946 och efter kriget","y0":1944,"y1":1944,"x":"Den 6 juni 1944 landsteg amerikanska, brittiska och kanadensiska trupper på Normandies stränder i norra Frankrike. Det var den största landstigningen i historien och öppnade en ny front i väst."},{"d":"juni 1944","c":"Polen","t":"Ungerska judar anländer med godståg till Auschwitz","s":"1942–1946 och efter kriget","y0":1944,"y1":1944,"x":"Våren och sommaren 1944 deporterades omkring 430 000 ungerska judar till Auschwitz. De flesta gasades ihjäl direkt när de kom fram."},{"d":"sommaren 1944","c":"Stilla havet","t":"USA tar övertaget till sjöss","s":"1942–1946 och efter kriget","y0":1944,"y1":1944,"x":"Efter segern vid Midway 1942 tog USA steg för steg övertaget i Stilla havet. Sommaren och hösten 1944 vann de stora sjöslag vid Filippinerna."},{"d":"slutet av sommaren 1944","c":"Frankrike","t":"Paris befrias; de Gaulle håller intåg","s":"1942–1946 och efter kriget","y0":1944,"y1":1944,"x":"Den 25 augusti 1944 befriades Paris. General de Gaulle, som lett det fria Frankrike från London, höll ett segerintåg."},{"d":"sep 1944","c":"Finland","t":"Eldupphöravtal med Sovjet; Finland måste köra ut tyskarna","s":"1942–1946 och efter kriget","y0":1944,"y1":1944,"x":"Finland slöt vapenstillestånd med Sovjet och fick lämna land i öster. Finland var tvunget att driva ut de tyska trupperna, vilket ledde till Lapplandskriget."},{"d":"hösten 1944","c":"Tyskland","t":"Allierade trupper går in i Tyskland från väster och öster; gasavrättningarna upphör","s":"1942–1946 och efter kriget","y0":1944,"y1":1944,"x":"Hösten 1944 nådde allierade trupper Tysklands gränser från både väst och öst. I november 1944 upphörde gasningarna i Auschwitz."},{"d":"vintern–våren 1945","c":"Europa","t":"Koncentrationslägren befrias","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"När de allierade ryckte fram befriades lägren. Röda armén befriade Auschwitz den 27 januari 1945. Soldaterna hittade utmärglade fångar och massgravar."},{"d":"1945","c":"Tyskland","t":"Dresden bombas","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"I februari 1945 bombade de allierade Dresden. Staden förstördes av en eldstorm och omkring 25 000 människor dog."},{"d":"1945","c":"Ungern","t":"Wallenberg grips av Sovjet","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"I januari 1945 greps Raoul Wallenberg av sovjetiska soldater i Budapest och fördes till Moskva. Han kom aldrig tillbaka."},{"d":"våren 1945","c":"Stilla havet","t":"USA kan nu invadera Japan","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"Efter stora och blodiga slag om öar som Iwo Jima och Okinawa var USA nära nog att kunna invadera Japans huvudöar."},{"d":"april 1945","c":"USA","t":"Roosevelt dör; Truman blir president","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"Franklin D. Roosevelt dog den 12 april 1945. Vicepresident Harry S. Truman blev president och fick ta beslutet om atombomben."},{"d":"april 1945","c":"Tyskland","t":"Sovjet når Berlin; amerikanska och ryska trupper möts vid Elbe; Hitler begår självmord","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"Röda armén anföll Berlin och amerikanska och sovjetiska soldater möttes vid floden Elbe. Den 30 april 1945 begick Hitler självmord i sin bunker i Berlin."},{"d":"1945","c":"Italien","t":"Mussolini avrättas av italienska antifascister","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"I slutet av april 1945 greps Mussolini av italienska partisaner när han försökte fly. Han sköts och hans kropp hängdes upp i Milano."},{"d":"7–8 maj 1945","c":"Tyskland","t":"Tyskland kapitulerar; kriget i Europa är slut","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"Tyskland kapitulerade villkorslöst den 7–8 maj 1945. Den 8 maj firas som dagen då kriget i Europa tog slut."},{"d":"sommaren 1945","c":"USA","t":"Första lyckade provsprängningen av en atombomb","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"Den 16 juli 1945 provsprängde USA världens första atombomb i New Mexicos öken. Bomben hade utvecklats i det hemliga Manhattanprojektet."},{"d":"6 aug 1945","c":"Japan","t":"Atombomben över Hiroshima","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"Den 6 augusti 1945 släppte USA en atombomb över Hiroshima. Omkring 70 000–80 000 människor dog direkt och många fler senare av skador och strålning."},{"d":"9 aug 1945","c":"Japan","t":"Atombomben över Nagasaki","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"Den 9 augusti 1945 släpptes en andra atombomb över Nagasaki. Samma dag hade Sovjet förklarat krig mot Japan."},{"d":"15 aug 1945","c":"Japan","t":"Hirohito meddelar att Japan kapitulerat; andra världskriget är slut","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"Kejsar Hirohito meddelade i radio att Japan gav upp. Kapitulationen skrevs under formellt den 2 september 1945. Andra världskriget var slut."},{"d":"efter 1945","c":"Europa","t":"Polens gränser ritas om; omkring tio miljoner tyskar drivs västerut","s":"1942–1946 och efter kriget","y0":1945,"y1":1950,"x":"Polen flyttades västerut: Sovjet tog östra Polen och Polen fick tyska områden i väster. Omkring tio miljoner tyskar fördrevs eller flydde från Öst- och Centraleuropa."},{"d":"nov 1945","c":"Tyskland","t":"Nürnbergrättegångarna börjar (pågår i nio månader)","s":"1942–1946 och efter kriget","y0":1945,"y1":1945,"x":"I Nürnberg ställdes nazistiska ledare inför en internationell domstol. De åtalades för bland annat brott mot freden, krigsförbrytelser och brott mot mänskligheten."},{"d":"15 april 1946","c":"–","t":"Förhör med Auschwitz lägerkommendant Rudolf Höss","s":"1942–1946 och efter kriget","y0":1946,"y1":1946,"x":"Rudolf Höss, kommendant i Auschwitz, förhördes och vittnade i Nürnberg i april 1946. Han beskrev lugnt hur lägret var organiserat för massmord. Han dömdes senare i Polen och hängdes i Auschwitz 1947."},{"d":"1 okt 1946","c":"Tyskland","t":"Domarna i Nürnberg: 12 dödsdomar, 7 fängelse, 3 frikanda","s":"1942–1946 och efter kriget","y0":1946,"y1":1946,"x":"Domstolen dömde 12 till döden, 7 till fängelse och frikände 3. Rättegångarna visade att även ledare kan ställas till svars för sina brott."},{"d":"okt 1946","c":"Tyskland","t":"De dödsdömda hängs; Göring tar livet av sig före avrättningen","s":"1942–1946 och efter kriget","y0":1946,"y1":1946,"x":"De dödsdömda hängdes i oktober 1946. Hermann Göring tog livet av sig med gift natten före avrättningen."},{"d":"efter kriget","c":"Norge, Japan","t":"Quisling döms till döden; ett tiotal japaner döms till döden","s":"1942–1946 och efter kriget","y0":1945,"y1":1948,"x":"Quisling dömdes för förräderi och avrättades i Norge 1945. I Tokyo hölls en rättegång mot Japans krigsledare, där flera dömdes till döden."},{"d":"1947","c":"Sovjet","t":"Wallenberg dör troligen i ett fängelse i Moskva","s":"1942–1946 och efter kriget","y0":1947,"y1":1947,"x":"Enligt Sovjet dog Wallenberg i ett fängelse i Moskva 1947. Vad som egentligen hände honom är fortfarande inte helt klarlagt."},{"d":"15 år efter kriget","c":"Argentina, Israel","t":"Adolf Eichmann grips, döms i Israel och hängs","s":"1942–1946 och efter kriget","y0":1960,"y1":1962,"x":"Adolf Eichmann organiserade transporterna av judar till lägren. Han flydde till Argentina men greps av israeliska agenter 1960. Han dömdes i Jerusalem och hängdes 1962."},{"d":"2008","c":"Polen","t":"Irena Sendler dör","s":"1942–1946 och efter kriget","y0":2008,"y1":2008,"x":"Irena Sendler var en polsk socialarbetare som smugglade ut omkring 2 500 judiska barn från Warszawas getto. Hon dog 2008, 98 år gammal."},{"d":"2000-talet","c":"Korea, Japan","t":"\"Tröstekvinnorna\" kämpar för en ursäkt från Japan","s":"1942–1946 och efter kriget","y0":2000,"y1":2026,"x":"Under kriget tvingade japanska armén tiotusentals kvinnor, många från Korea, till sexslaveri. De kallades ”tröstekvinnor”. Överlevande har länge kämpat för att Japan ska be om ursäkt och ge ersättning."},{"d":"2015","c":"–","t":"Astrid Lindgrens krigsdagböcker publiceras; Aleksijevitj får Nobelpriset","s":"1942–1946 och efter kriget","y0":2015,"y1":2015,"x":"Astrid Lindgrens dagböcker från krigsåren gavs ut 2015. Samma år fick Svetlana Aleksijevitj Nobelpriset i litteratur, bland annat för boken ”Kriget har inget kvinnligt ansikte” om sovjetiska kvinnor i kriget."},{"d":"2020","c":"Tyskland","t":"En 93-årig f.d. lägervakt åtalas för mord på över 5 000 personer","s":"1942–1946 och efter kriget","y0":2020,"y1":2020,"x":"En före detta vakt i koncentrationslägret Stutthof ställdes inför rätta i Tyskland. Han dömdes 2020 för medhjälp till mord på över 5 000 personer. Det visar att nazistiska brott fortfarande prövas."}];
@@ -141,136 +164,230 @@ const ERA=[
  {n:'1930–1938',s:'Depressionen hjälper diktaturerna: Hitler tar makten 1933, Stalins terror, Japan anfaller Kina. Hitler bryter Versaillesfreden steg för steg medan demokratierna ger efter.'},
  {n:'1939–1941',s:'Kriget börjar med Polen. Tyskland vinner blixtkrig i väst, Storbritannien står ensamt. 1941 anfalls Sovjet och USA dras in efter Pearl Harbor.'},
  {n:'1942–1946 och efter',s:'Förintelsen och vändpunkterna (el-Alamein, Stalingrad). De allierade går framåt, Tyskland och Japan kapitulerar 1945 och förbrytarna ställs inför rätta.'}];
+const ANC={1918:'första världskriget tar slut',1923:'hyperinflationen och Hitlers kupp',1929:'börskraschen',1933:'Hitler tar makten',1939:'krigsutbrottet',1941:'Barbarossa och Pearl Harbor',1945:'krigsslutet'};
+const CH=[
+ {n:'Hitlers väg till makten',s:'Hur en ung demokrati blev en diktatur på 14 år.',st:[9,10,19,20,26,29,30,34,36,37,39],w:['Många tyskar vägrade acceptera förlusten och de hårda villkoren. Högern letade syndabockar.','Republiken var svag och omstridd. Skadestånd och sedeltryckning ledde till hyperinflation.','Kaoset och missnöjet 1923 fick Hitler att tro att tiden var mogen för en kupp.','Kuppen misslyckades. Under de lugna åren var nazisterna ett litet parti.','Tysklands uppgång byggde på lån från USA. När börsen kraschade drogs lånen tillbaka.','Depressionen gav massarbetslöshet och många väljare sökte sig till extrema partier.','Krisen förvärrades och löftena om arbete och ordning lockade allt fler.','Som största parti krävde Hitler regeringsmakten. Konservativa trodde att de kunde styra honom.','Med regeringsmakten använde nazisterna branden som förevändning att slå ut motståndare.','Fullmaktslagen lät Hitler stifta lagar själv, och snart förbjöds alla andra partier.']},
+ {n:'Vägen till kriget',s:'Aggression som lönade sig, och eftergifter som inte stoppade den.',st:[32,43,45,47,55,57,60,61,63,64,65],w:['NF kunde inte stoppa Japan. Mussolini såg att aggression lönade sig.','Sanktionerna mot Italien var svaga. Hitler testade om västmakterna skulle reagera.','Västmakterna gjorde inget. I Spanien kunde Hitler och Mussolini pröva sina vapen.','Diktaturerna blev starkare och närmade sig varandra. Hitler tog nästa steg: Österrike.','Anschluss gick utan motstånd. Hitler krävde nu Sudetlandet.','Eftergiftspolitiken gav Hitler det han ville ha, men han nöjde sig inte.','När Hitler tog ett land som inte var tyskt insåg väst att eftergifterna misslyckats.','Hitler ville undvika ett tvåfrontskrig och gjorde upp med Stalin.','Med Sovjet på sin sida kunde Hitler anfalla Polen.','Storbritannien och Frankrike hade lovat att försvara Polen.']},
+ {n:'Från förföljelse till folkmord',s:'Förintelsen växte fram steg för steg.',st:[38,42,56,58,90,96,111,116,129],w:['Steg för steg stängdes judar ute från samhället, nu genom lag.','Många judar ville fly, men få länder ville ta emot dem.','Världen hade visat att den inte tänkte hjälpa. Förföljelsen blev öppet våld.','Med kriget mot Sovjet gick nazisterna från förföljelse till massmord.','Skjutningarna räckte inte för nazisterna. De planerade ett industriellt folkmord.','Mordmaskineriet fortsatte ända in i krigets slutskede.','När de allierade ryckte fram befriades lägren och brotten blev kända.','Brotten skulle inte gå ostraffade: ledarna ställdes inför rätta.']},
+ {n:'Kriget vänder',s:'Från axelmakternas höjdpunkt till kapitulationerna 1945.',st:[88,92,94,99,102,104,110,121,123,125,127],w:['Tyskland fastnade i Sovjet. Japan ville samtidigt slå ut USA:s flotta för att kunna ta Sydostasien.','Hitler ställde sig bakom Japan och förklarade krig mot USA.','Med USA:s resurser började de allierade vinna. Den första stora vändpunkten kom i Nordafrika.','Samtidigt i öst förlorade Tyskland en hel armé.','Tyskland var på reträtt. Från Nordafrika kunde de allierade anfalla Italien.','Sovjet krävde en andra front. Den kom i Normandie.','Tyskland pressades från två håll och Berlin föll.','Med Hitler död gav Tyskland upp.','Kriget mot Japan fortsatte. USA använde atombomben för att tvinga fram en kapitulation.','Efter två atombomber och Sovjets krigsförklaring gav Japan upp.']},
+ {n:'USA: boom, krasch och New Deal',s:'Från det glada 20-talet till depressionen och Roosevelt.',st:[2,13,25,28,29,33,48,53],w:['Massproduktion gjorde varor billiga och skapade konsumtionssamhället.','Optimismen fick många att köpa aktier, ofta med lånade pengar.','Aktierna steg mer än företagen tjänade, och fabrikerna producerade mer än folk kunde köpa.','När förtroendet sviktade ville alla sälja på en gång.','Depressionen gav massarbetslöshet. Väljarna ville ha en president som lät staten agera.','New Deal gav jobb och hopp, och väljarna belönade Roosevelt.','Reformerna och statens satsningar fick långsamt fart på ekonomin.']},
+ {n:'Stalins Sovjet',s:'Revolution, tvångskollektivisering och terror.',st:[4,15,21,27,31,35,46,63],w:['Efter inbördeskriget låg ekonomin i spillror. Lenin tillät viss privat handel.','När Lenin dog tog Stalin makten efter en maktkamp.','Stalin ville snabbt industrialisera och ta kontroll över jordbruket.','Spannmål från kollektivjordbruken skulle betala för industrin.','Hårda krav på spannmål och kaos i jordbruket ledde till svält.','Stalin ville krossa all opposition, även inom partiet.','Med armén försvagad av utrensningarna ville Stalin köpa tid mot Hitler.']},
+ {n:'Italien under Mussolini',s:'Europas första fascistiska diktatur, från start till slut.',st:[11,18,23,43,78,106,122],w:['Rädslan för kommunism fick många att stödja fascisterna.','Med regeringsmakten byggde Mussolini upp en diktatur.','Mussolini ville skapa ett nytt romerskt imperium.','Italien närmade sig Tyskland och gick in i kriget när Frankrike föll.','Förluster i Afrika och de allierades landstigning på Sicilien gjorde Mussolini impopulär.','Mussolini fortsatte som Hitlers lydkung tills han greps i krigsslutet.']}];
+const LINKS=[];CH.forEach((c,ci)=>c.st.slice(1).forEach((b,j)=>LINKS.push({a:c.st[j],b,w:c.w[j],c:ci})));
 const SEC=[...new Set(E.map(e=>e.s))];
 const PC=['var(--p0)','var(--p1)','var(--p2)','var(--p3)'];
 const KEY=new Set([4,6,7,9,18,19,20,21,29,33,35,36,37,42,47,52,55,57,58,63,64,68,70,77,79,88,92,96,102,110,116,121,123,125,127,129]);
-E.forEach((e,i)=>{e.i=i;e.p=SEC.indexOf(e.s);e.key=KEY.has(i);e.exact=e.y0===e.y1&&!/talet|efter|från/.test(e.d)&&e.y0>=1910&&e.y0<=1950;e.k=e.y0<1918?'fore':e.y0>1946?'efter':String(e.y0)});
+E.forEach((e,i)=>{e.i=i;e.p=SEC.indexOf(e.s);e.key=KEY.has(i);e.exact=e.y0===e.y1&&!/talet|efter|från/.test(e.d)&&e.y0>=1910&&e.y0<=1950;e.k=e.y0<1918?'fore':e.y0>1946?'efter':String(e.y0);e.ch=CH.map((c,ci)=>c.st.includes(i)?ci:-1).filter(x=>x>=0)});
 const KL=k=>k==='fore'?'Före 1918':k==='efter'?'Efter 1946':k;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $=id=>document.getElementById(id);
-const st={view:'tl',era:-1,year:'',q:'',key:false,fresh:false,hide:false,mode:'year'};
+const app=$('app');
+const st={view:'las',era:-1,year:'',q:'',key:false,hide:false,chain:-1,hidewhy:false};
 let M={};
-try{Object.assign(st,JSON.parse(localStorage.getItem('tl2-st')||'{}'));M=JSON.parse(localStorage.getItem('tl2-m')||'{}')}catch(_){}
-if(location.hash==='#forhor')st.view='qz';if(location.hash==='#tidslinje')st.view='tl';
-const save=()=>{try{localStorage.setItem('tl2-st',JSON.stringify(st));localStorage.setItem('tl2-m',JSON.stringify(M))}catch(_){}};
-const known=i=>(M[i]?.s||0)>=2;
-let open=-1;
+try{Object.assign(st,JSON.parse(localStorage.getItem('tl3-st')||'{}'));M=JSON.parse(localStorage.getItem('tl3-m')||'null')||{};
+ if(!Object.keys(M).length){const o=JSON.parse(localStorage.getItem('tl2-m')||'{}');for(const k in o)M[k]={b:Math.min(o[k].s||0,4),t:Date.now(),w:o[k].w||0}}}catch(_){}
+if(['#las','#samband','#ova'].includes(location.hash))st.view=location.hash.slice(1);
+const save=()=>{try{localStorage.setItem('tl3-st',JSON.stringify(st));localStorage.setItem('tl3-m',JSON.stringify(M))}catch(_){}};
+const IV=[0,10*60e3,864e5,3*864e5,7*864e5];
+const box=i=>M[i]?.b||0;
+const known=i=>box(i)>=2;
+const seen=i=>!!M[i];
+const isDue=i=>seen(i)&&Date.now()-M[i].t>=IV[box(i)]&&box(i)<4;
+let open=-1,S=null;
 
-$('tot').textContent=E.length;
-$('eras').innerHTML=`<button class="chip" data-era="-1">Alla perioder</button>`+ERA.map((r,i)=>`<button class="chip" data-era="${i}" style="--pc:${PC[i]}"><i class="dot"></i>${r.n}</button>`).join('');
-const KEYS=['fore'];for(let y=1918;y<=1946;y++)KEYS.push(String(y));KEYS.push('efter');
-$('fYear').innerHTML='<option value="">Alla år</option>'+KEYS.map(k=>`<option value="${k}">${KL(k)}</option>`).join('');
-
-const match=e=>(st.era<0||e.p===st.era)&&(!st.year||e.k===st.year||(st.year!=='fore'&&st.year!=='efter'&&e.y0<=+st.year&&e.y1>=+st.year&&e.y0>=1918))&&(!st.key||e.key)&&(!st.fresh||!known(e.i))&&(!st.q||(e.t+' '+e.x+' '+e.c+' '+e.d).toLowerCase().includes(st.q.toLowerCase()));
-
-function progress(){
-  $('prog').innerHTML=ERA.map((r,p)=>{const a=E.filter(e=>e.p===p),k=a.filter(e=>known(e.i)).length;return `<div style="--pc:${PC[p]};flex:${a.length}" title="${r.n}: ${k} av ${a.length}"><i style="width:${k/a.length*100}%"></i></div>`}).join('');
-  $('known').textContent=E.filter(e=>known(e.i)).length;
-  const ka=E.filter(e=>e.key);$('keyp').textContent=`★ viktigaste: ${ka.filter(e=>known(e.i)).length} av ${ka.length}`;
+function hint(e){
+  const ys=Object.keys(ANC).map(Number);
+  if(ANC[e.y0])return `Samma år som ${ANC[e.y0]}.`.replace(/^Samma år som (.*)$/,m=>e.key&&ys.includes(e.y0)&&Object.values(ANC).some(a=>e.t.toLowerCase().includes(a.split(' ')[0]))?`Under perioden ${ERA[e.p].n}.`:m);
+  const pr=ys.filter(y=>y<e.y0).pop(),nx=ys.find(y=>y>e.y0);
+  if(pr&&nx)return `Efter ${ANC[pr]} men före ${ANC[nx]}.`;
+  return pr?`Efter ${ANC[pr]}.`:`Före ${ANC[nx]}.`;
 }
-function controls(){
-  document.querySelectorAll('[data-era]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.era===st.era));
-  $('fYear').value=st.year;$('fQ').value=st.q;
-  $('fKey').setAttribute('aria-pressed',st.key);$('fNew').setAttribute('aria-pressed',st.fresh);$('fHide').setAttribute('aria-pressed',st.hide);
-  $('fHide').hidden=st.view!=='tl';
-  $('tTl').setAttribute('aria-selected',st.view==='tl');$('tQz').setAttribute('aria-selected',st.view==='qz');
-  $('vTl').hidden=st.view!=='tl';$('vQz').hidden=st.view!=='qz';
-  $('mYear').setAttribute('aria-pressed',st.mode==='year');$('mOrd').setAttribute('aria-pressed',st.mode==='ord');
+function trick(e){
+  const ys=Object.keys(ANC).map(Number);
+  if(ANC[e.y0])return `Ankarår: <b>${e.y0}</b>, ${ANC[e.y0]}.`;
+  const pr=ys.filter(y=>y<e.y0).pop(),nx=ys.find(y=>y>e.y0);
+  if(pr!==undefined&&(nx===undefined||e.y0-pr<=nx-e.y0))return `Minnesknep: <b>${e.y0-pr} år efter</b> ${ANC[pr]} (${pr}).`;
+  if(nx!==undefined)return `Minnesknep: <b>${nx-e.y0} år före</b> ${ANC[nx]} (${nx}).`;return '';
+}
+function head(){
+  document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===st.view));
+  $('prog').innerHTML=ERA.map((r,p)=>{const a=E.filter(e=>e.p===p),k=a.filter(e=>known(e.i)).length;return `<div style="--pc:${PC[p]};flex:${a.length}" title="${r.n}: ${k} av ${a.length}"><i style="width:${k/a.length*100}%"></i></div>`}).join('');
+  $('tot').textContent=E.length;$('known').textContent=E.filter(e=>known(e.i)).length;
+  $('kt').textContent=KEY.size;$('kk').textContent=E.filter(e=>e.key&&known(e.i)).length;
+  const d=E.filter(e=>isDue(e.i)).length;$('due').hidden=!d;$('due').textContent=d;
+}
+/* LÄS */
+const KEYS=['fore'];for(let y=1918;y<=1946;y++)KEYS.push(String(y));KEYS.push('efter');
+const match=e=>(st.era<0||e.p===st.era)&&(!st.year||e.k===st.year||(st.year!=='fore'&&st.year!=='efter'&&e.y0<=+st.year&&e.y1>=+st.year&&e.y0>=1918))&&(!st.key||e.key)&&(!st.q||(e.t+' '+e.x+' '+e.c+' '+e.d).toLowerCase().includes(st.q.toLowerCase()));
+function las(){
+  app.innerHTML=`<p class="intro">Läs en period i taget. Klicka på en händelse för att läsa mer. Fyllda prickar är <b>ankarår</b> att kunna utantill, och ★ är de viktigaste vändpunkterna. Från <a href="https://claude.ai/artifact/SxfXJke2EJA6annNGhJ3oo">din tidslinje</a>.</p>
+  <div class="chips"><button class="chip" data-era="-1" aria-pressed="${st.era<0}">Alla</button>${ERA.map((r,i)=>`<button class="chip" data-era="${i}" style="--pc:${PC[i]}" aria-pressed="${st.era===i}"><i class="dot"></i>${r.n}</button>`).join('')}</div>
+  <div class="row"><select id="fYear" aria-label="År"><option value="">Alla år</option>${KEYS.map(k=>`<option value="${k}"${st.year===k?' selected':''}>${KL(k)}</option>`).join('')}</select><input type="search" id="fQ" placeholder="Sök händelse, land eller person" aria-label="Sök" value="${esc(st.q)}"></div>
+  <div class="chips"><button class="chip" id="fKey" aria-pressed="${st.key}">★ Bara det viktigaste</button><button class="chip" id="fHide" aria-pressed="${st.hide}">Dölj årtal (testa dig själv)</button></div>
+  <div class="count" id="cnt"></div><div id="list"></div>
+  <p class="note">Förklaringarna är skrivna av Claude utifrån allmän historisk kunskap. Jämför med boken inför provet.</p>`;
+  $('fYear').onchange=e=>{st.year=e.target.value;list();save()};
+  let qt;$('fQ').oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{st.q=e.target.value.trim();list();save()},150)};
+  $('fKey').onclick=()=>{st.key=!st.key;render()};$('fHide').onclick=()=>{st.hide=!st.hide;render()};
+  list();
 }
 function list(){
   const sh=E.filter(match);
-  $('cnt').textContent=st.view==='tl'?(sh.length===E.length?`${E.length} händelser`:`Visar ${sh.length} av ${E.length}`):`Förhöret tar frågor från de ${sh.length} händelser som matchar filtret`;
-  $('empty').hidden=sh.length>0;
-  $('list').className='list'+(st.hide?' hide':'');
+  $('cnt').textContent=sh.length===E.length?`${E.length} händelser`:`Visar ${sh.length} av ${E.length}`;
   let lp=-1,lk='',h='';
   for(const e of sh){
     if(e.p!==lp){h+=`<div class="era" style="--pc:${PC[e.p]}"><h2>${ERA[e.p].n}</h2><p>${ERA[e.p].s}</p></div>`;lp=e.p;lk=''}
-    if(e.k!==lk){h+=`<div class="yr" style="--pc:${PC[e.p]}">${KL(e.k)}</div>`;lk=e.k}
+    if(e.k!==lk){const a=ANC[+e.k];h+=`<div class="yr${a?' anc':''}" style="--pc:${PC[e.p]}">${KL(e.k)}${a?`<small>ankarår</small>`:''}</div>`;lk=e.k}
     const o=e.i===open;
-    h+=`<div class="ev${e.key?' key':''}${o?' open':''}" style="--pc:${PC[e.p]}"><button data-i="${e.i}" aria-expanded="${o}"><span class="d"><span class="v">${esc(e.d)}</span></span><span class="t">${esc(e.t)}<small>${esc(e.c)}</small></span><span class="m">${e.key?'<span class="k" title="Viktig">★</span> ':''}${known(e.i)?'<span class="ok" title="Du kan den">✓</span>':''}</span></button>${o?`<div class="x"><p>${esc(e.x)}</p><button class="btn" data-know="${e.i}">${known(e.i)?'Jag kan den inte än':'✓ Jag kan den'}</button></div>`:''}</div>`;
+    h+=`<div class="ev${e.key?' key':''}${o?' open':''}" style="--pc:${PC[e.p]}"><button data-i="${e.i}" aria-expanded="${o}"><span class="d"><span class="v">${esc(e.d)}</span></span><span class="t">${esc(e.t)}<small>${esc(e.c)}</small></span><span class="m">${e.key?'<span class="k" title="Viktig">★</span> ':''}${known(e.i)?'<span class="okc" title="Du kan den">✓</span>':''}</span></button>${o?`<div class="x"><p>${esc(e.x)}</p>${e.exact?`<p class="lk">${trick(e)}</p>`:''}${e.ch.length?`<p class="lk">Ingår i sambandet ${e.ch.map(c=>`<button data-gochain="${c}">${esc(CH[c].n)}</button>`).join(', ')}.</p>`:''}<button class="btn" data-know="${e.i}">${known(e.i)?'Jag kan den inte än':'✓ Jag kan den'}</button></div>`:''}</div>`;
   }
-  $('list').innerHTML=h;
+  $('list').className=st.hide?'hide':'';
+  $('list').innerHTML=h||`<p class="empty">Inga händelser matchar.</p>`;
 }
-function render(){controls();progress();list();save();if(st.view==='qz'&&!Q)next()}
-
-/* quiz */
-let Q=null,sc={r:0,n:0},recent=[];
-function pool(){return E.filter(e=>match(e)&&e.exact)}
-function pick(arr){
-  const w=arr.map(e=>{const m=M[e.i]||{};let x=known(e.i)?1:4;if(m.w)x+=2*m.w;if(recent.includes(e.i))x=.05;return x});
-  let r=Math.random()*w.reduce((a,b)=>a+b,0);for(let j=0;j<arr.length;j++){r-=w[j];if(r<=0)return arr[j]}return arr[arr.length-1];
+/* SAMBAND */
+function samband(){
+  if(st.chain<0){
+    app.innerHTML=`<p class="intro">Historia handlar om orsak och följd. Varje samband är en kedja av händelser och varför den ena ledde till den andra. Det är det provfrågor av typen <b>”Förklara varför…”</b> brukar fråga efter.</p>
+    <div class="cgrid">${CH.map((c,i)=>{const ev=c.st.map(x=>E[x]);const k=ev.filter(e=>known(e.i)).length;return `<button class="ccard" data-chain="${i}" style="--c1:${PC[ev[0].p]};--c2:${PC[ev[ev.length-1].p]}"><h3>${esc(c.n)}</h3><span>${esc(c.s)}</span><span>${ev[0].y0}–${ev[ev.length-1].y0} · ${c.st.length} steg · du kan ${k}</span></button>`}).join('')}</div>`;
+    return;
+  }
+  const c=CH[st.chain];
+  app.innerHTML=`<div class="chain${st.hidewhy?' hidewhy':''}"><div class="cbar" style="margin-bottom:0"><button class="btn" id="back">← Alla samband</button></div>
+  <h2>${esc(c.n)}</h2><p class="lead">${esc(c.s)}</p>
+  <div class="chips"><button class="chip" id="hw" aria-pressed="${st.hidewhy}">Dölj förklaringarna (testa dig själv)</button></div>
+  ${c.st.map((x,j)=>{const e=E[x];return `<div class="step" style="--pc:${PC[e.p]}"><div class="d">${esc(e.d)} · ${esc(e.c)}</div>${esc(e.t)}</div>${j<c.w.length?`<div class="why"><span>${esc(c.w[j])}</span></div>`:''}`}).join('')}
+  <div class="cbar"><button class="btn pri" data-start="chain:${st.chain}">Öva på det här sambandet →</button></div></div>`;
+  $('back').onclick=()=>{st.chain=-1;render()};
+  $('hw').onclick=()=>{st.hidewhy=!st.hidewhy;render()};
 }
+/* ÖVA */
 const shuffle=a=>{for(let j=a.length-1;j>0;j--){const k=Math.floor(Math.random()*(j+1));[a[j],a[k]]=[a[k],a[j]]}return a};
-function mark(i,ok){const m=M[i]||(M[i]={s:0,w:0});if(ok){m.s=Math.min(m.s+1,5);m.w=Math.max(0,m.w-1)}else{m.s=0;m.w=Math.min(m.w+1,3)}recent=[i,...recent].slice(0,6);save()}
-function next(){
-  const P=pool();const box=$('qbox');
-  if(P.length<(st.mode==='ord'?4:1)){Q=null;box.innerHTML=`<p class="empty">För få händelser med exakt årtal i det här filtret. Välj fler perioder eller år.</p>`;return}
-  if(st.mode==='year'){
-    const e=pick(P);const ys=new Set([e.y0]);const c=[-1,1,-2,2,-3,3,4,-4].map(d=>e.y0+d).filter(y=>y>=1910&&y<=1950);shuffle(c);
-    for(const y of c){if(ys.size>=4)break;ys.add(y)}
-    Q={t:'year',e,opts:[...ys].sort((a,b)=>a-b),done:false};
-  }else{
-    const by={};for(const e of P)(by[e.y0]||(by[e.y0]=[])).push(e);
-    const yrs=Object.keys(by);if(yrs.length<4){Q=null;box.innerHTML=`<p class="empty">Ordningsfrågor behöver händelser från minst fyra olika år. Bredda filtret.</p>`;return}
-    const first=pick(P);const chosen=[first];const used=new Set([first.y0]);
-    for(const y of shuffle(yrs.filter(y=>+y!==first.y0))){if(chosen.length>=4)break;chosen.push(pick(by[y]))}
-    Q={t:'ord',items:shuffle(chosen),sel:[],done:false};
-  }
-  drawQ();
+function scopeEvents(sc){
+  const [t,v]=sc.split(':');
+  if(t==='key')return E.filter(e=>e.key);
+  if(t==='era')return E.filter(e=>e.p===+v);
+  if(t==='chain')return CH[+v].st.map(x=>E[x]);
+  if(t==='list')return v.split(',').map(x=>E[+x]);
+  return E;
 }
-function drawQ(){
-  const box=$('qbox');const sco=`<span class="score">${sc.n?`${sc.r} av ${sc.n} rätt den här gången`:'Svara för att börja'}</span>`;
-  if(Q.t==='year'){
-    const e=Q.e;
-    box.innerHTML=`<div class="qcard" style="--pc:${PC[e.p]}"><div class="qmeta"><span>${ERA[e.p].n} · ${esc(e.c)}</span><span>${e.key?'★ viktig':''}</span></div>
+function prio(e){let p=Math.random();if(isDue(e.i))p+=6;else if(!seen(e.i))p+=e.key?4:3;else if(!known(e.i))p+=3;p+=(M[e.i]?.w||0);if(known(e.i)&&!isDue(e.i))p-=4;return p}
+function build(sc){
+  const P=scopeEvents(sc);const N=Math.min(10,Math.max(4,P.length));
+  const items=[...P].sort((a,b)=>prio(b)-prio(a)).slice(0,N);
+  const links=LINKS.filter(l=>sc.startsWith('chain:')?l.c===+sc.split(':')[1]:P.some(e=>e.i===l.a));
+  const qs=items.map((e,j)=>({t:e.exact&&(j%2||box(e.i)>0)?'year':'flash',e}));
+  shuffle(links);const nc=Math.min(links.length,sc.startsWith('chain:')?3:2);
+  for(let j=0;j<nc;j++)qs.splice(2+j*3,0,{t:'cause',l:links[j]});
+  const ex=P.filter(e=>e.exact);
+  if(sc.startsWith('chain:')){const c=CH[+sc.split(':')[1]].st;const s=Math.floor(Math.random()*(c.length-3));const pick=shuffle(c.map((_,j)=>j)).slice(0,4).sort((a,b)=>a-b);qs.push({t:'ord',truth:pick.map(j=>c[j])})}
+  else if(new Set(ex.map(e=>e.y0)).size>=4){const by={};for(const e of ex)(by[e.y0]||(by[e.y0]=[])).push(e);const ys=shuffle(Object.keys(by)).slice(0,4).map(Number).sort((a,b)=>a-b);qs.splice(Math.min(6,qs.length),0,{t:'ord',truth:ys.map(y=>shuffle(by[y])[0].i)})}
+  return qs.slice(0,12);
+}
+function mark(i,g,first){const fresh=!M[i];const m=M[i]||(M[i]={b:0,t:0,w:0});if(g===2)m.b=fresh&&first?2:Math.min(m.b+1,4);else if(g===0){m.b=0;m.w=Math.min((m.w||0)+1,3)}m.t=Date.now();save()}
+function startS(sc,label){S={sc,label,qs:build(sc),i:0,res:[],missed:new Set()};prepQ();render()}
+function prepQ(){
+  const q=S.qs[S.i];if(!q)return;q.done=false;q.hint=false;q.rev=false;
+  if(q.t==='year'){const y=q.e.y0;const c=shuffle([-1,1,-2,2,-3,3,4,-4].map(d=>y+d).filter(v=>v>=1910&&v<=1950)).slice(0,3);q.opts=[y,...c].sort((a,b)=>a-b)}
+  if(q.t==='cause'){const b=E[q.l.b];const pool=E.filter(e=>e.i!==q.l.a&&e.i!==q.l.b&&Math.abs(e.y0-b.y0)<=6&&!LINKS.some(l=>l.a===q.l.a&&l.b===e.i));q.opts=shuffle([b,...shuffle(pool).slice(0,3)])}
+  if(q.t==='ord'){q.items=shuffle([...q.truth]);q.sel=[]}
+}
+function ova(){
+  if(!S){
+    const d=E.filter(e=>isDue(e.i)).length,nw=E.filter(e=>!seen(e.i)).length;
+    const ks=E.filter(e=>e.key&&!known(e.i)).length;
+    app.innerHTML=`<div class="start"><h2>Öva</h2><p>Korta pass med blandade frågor: flashcards där du först tänker själv, årtal, rätt ordning och orsak och följd. Det du missar kommer tillbaka snart, det du kan kommer mer sällan.</p>
+    <button class="opt rec" data-start="smart"><span><b>Dagens pass</b><small>${d?`${d} att repetera · `:''}${nw} nya kvar · väljer det du behöver mest</small></span><span class="go">→</span></button>
+    <button class="opt" data-start="key"><span><b>★ Det viktigaste</b><small>36 vändpunkter · ${ks?`${ks} kvar att lära`:'alla klara!'}</small></span><span class="go">→</span></button>
+    <div class="sec">En period</div>
+    ${ERA.map((r,i)=>{const a=E.filter(e=>e.p===i);return `<button class="opt" data-start="era:${i}" style="border-left:5px solid ${PC[i]}"><span><b>${r.n}</b><small>${a.filter(e=>known(e.i)).length} av ${a.length} kan</small></span><span class="go">→</span></button>`}).join('')}
+    <div class="sec">Ett samband</div>
+    ${CH.map((c,i)=>`<button class="opt" data-start="chain:${i}"><span><b>${esc(c.n)}</b><small>${c.st.length} steg</small></span><span class="go">→</span></button>`).join('')}</div>`;
+    return;
+  }
+  const q=S.qs[S.i];
+  const dots=`<div class="dots">${S.qs.map((_,j)=>`<i class="${j<S.res.length?(S.res[j]?'r':'w'):j===S.i?'c':''}"></i>`).join('')}</div>`;
+  if(!q){
+    const r=S.res.filter(Boolean).length;const ms=[...S.missed];
+    app.innerHTML=`<div class="sum"><div class="qtop">${dots}</div><div class="big">${r}/${S.res.length}</div><p>${r===S.res.length?'Alla rätt. Snyggt!':r>=S.res.length*.7?'Bra jobbat. Missarna kommer tillbaka snart.':'Bra att du övar. Missarna kommer tillbaka tills du kan dem.'}</p>
+    ${ms.length?`<div class="miss"><div class="sec">Repetera de här</div>${ms.map(i=>`<div><small>${esc(E[i].d)} · ${esc(E[i].c)}</small>${esc(E[i].t)}</div>`).join('')}</div>`:''}
+    <div class="cbar" style="justify-content:center">${ms.length?`<button class="btn pri" data-start="list:${ms.join(',')}">Öva på missarna</button>`:''}<button class="btn${ms.length?'':' pri'}" data-start="${S.sc}">Ett pass till</button><button class="btn" id="quit">Klar</button></div></div>`;
+    $('quit').onclick=()=>{S=null;render()};return;
+  }
+  const top=`<div class="qtop"><button class="btn" id="quit" aria-label="Avsluta passet">✕</button>${dots}<span class="kbd" style="margin:0">${S.i+1}/${S.qs.length}</span></div>`;
+  let body='';
+  if(q.t==='flash'){
+    const e=q.e;
+    body=`<div class="qcard" style="--pc:${PC[e.p]}"><div class="qmeta"><span>Flashcard · ${esc(e.c)}</span><span>${e.key?'<span class="k">★</span> viktig':''}</span></div>
     <div class="q">${esc(e.t)}</div>
-    <div class="opts">${Q.opts.map((y,j)=>`<button class="btn${Q.done?(y===e.y0?' right':y===Q.ans?' wrong':''):''}" data-opt="${y}" ${Q.done?'disabled':''}>${y}</button>`).join('')}</div>
-    ${Q.done?`<div class="fb"><b class="${Q.ans===e.y0?'ok':'bad'}">${Q.ans===e.y0?'Rätt!':'Inte riktigt.'}</b> ${esc(e.d)}.<p>${esc(e.x)}</p></div>`:''}
-    <div class="qbar">${sco}<button class="btn pri" id="nq" ${Q.done?'':'hidden'}>Nästa fråga →</button></div>
-    <p class="kbd">Tangenter: 1–4 svarar, Enter ger nästa fråga.</p></div>`;
+    ${q.rev?`<div class="big" style="color:${PC[e.p]}">${esc(e.d)}</div><p>${esc(e.x)}</p>${e.exact?`<p class="tip">${trick(e)}</p>`:''}
+      <div class="ask">Hur gick det?</div><div class="rate"><button class="btn b0" data-rate="0">Kunde inte<br><small>1</small></button><button class="btn" data-rate="1">Ungefär<br><small>2</small></button><button class="btn b2" data-rate="2">Kunde det<br><small>3</small></button></div>`
+    :`<div class="ask">När hände det, och varför var det viktigt? Tänk ut svaret först.</div><button class="btn pri" id="rev" style="width:100%">Visa svaret</button>`}
+    <p class="kbd">Mellanslag visar svaret, 1–3 bedömer.</p></div>`;
+  }else if(q.t==='year'){
+    const e=q.e,ok=q.ans===e.y0;
+    body=`<div class="qcard" style="--pc:${PC[e.p]}"><div class="qmeta"><span>Vilket år? · ${esc(e.c)}</span><span>${e.key?'<span class="k">★</span> viktig':''}</span></div>
+    <div class="q">${esc(e.t)}</div>
+    <div class="opts">${q.opts.map(y=>`<button class="btn${q.done?(y===e.y0?' right':y===q.ans?' wrong':''):''}" data-opt="${y}" ${q.done?'disabled':''}>${y}</button>`).join('')}</div>
+    ${!q.done?(q.hint?`<p class="tip">Ledtråd: ${hint(e)}</p>`:`<p class="tip"><button class="btn" id="hintb">Ledtråd</button></p>`):''}
+    ${q.done?`<div class="fb"><b class="${ok?'ok':'bad'}">${ok?'Rätt!':'Inte riktigt.'}</b> ${esc(e.d)}.<p>${esc(e.x)}</p><p class="tip">${trick(e)}</p></div>`:''}
+    <p class="kbd">1–4 svarar, Enter går vidare.</p></div>`;
+  }else if(q.t==='cause'){
+    const a=E[q.l.a],b=E[q.l.b],ok=q.ans===b.i;
+    body=`<div class="qcard" style="--pc:${PC[a.p]}"><div class="qmeta"><span>Orsak och följd · ${esc(CH[q.l.c].n)}</span><span>${esc(a.d)}</span></div>
+    <div class="q">${esc(a.t)}</div><div class="ask">Vad blev en följd av det här?</div>
+    <div class="opts txt">${q.opts.map(o=>`<button class="btn${q.done?(o.i===b.i?' right':o.i===q.ans?' wrong':''):''}" data-cause="${o.i}" ${q.done?'disabled':''}>${esc(o.t)}</button>`).join('')}</div>
+    ${q.done?`<div class="fb"><b class="${ok?'ok':'bad'}">${ok?'Rätt!':'Inte riktigt.'}</b> ${esc(b.d)}: ${esc(b.t)}.<p><b>Varför:</b> ${esc(q.l.w)}</p></div>`:''}
+    <p class="kbd">1–4 svarar, Enter går vidare.</p></div>`;
   }else{
-    const sorted=[...Q.items].sort((a,b)=>a.y0-b.y0||a.i-b.i);
-    box.innerHTML=`<div class="qcard" style="--pc:var(--ink)"><div class="qmeta"><span>Tryck i tidsordning, äldst först</span></div>
-    <div class="q">Vilken ordning hände de här?</div>
-    <div class="ord">${Q.items.map(e=>{const s=Q.sel.indexOf(e.i);const ok=Q.done?(sorted.indexOf(e)===s?' right':' wrong'):'';return `<button class="btn${s>=0?' sel':''}${ok}" data-ord="${e.i}" ${Q.done?'disabled':''}><span class="n">${s>=0?s+1:''}</span><span>${esc(e.t)}</span>${Q.done?`<span class="y">${esc(e.d)}</span>`:''}</button>`}).join('')}</div>
-    ${Q.done?`<div class="fb"><b class="${Q.ok?'ok':'bad'}">${Q.ok?'Rätt ordning!':'Rätt ordning är:'}</b><p>${sorted.map((e,j)=>`${j+1}. ${esc(e.d)}: ${esc(e.t)}`).join('<br>')}</p></div>`:''}
-    <div class="qbar">${sco}<span><button class="btn" id="undo" ${Q.done||!Q.sel.length?'hidden':''}>Ångra</button> <button class="btn pri" id="nq" ${Q.done?'':'hidden'}>Nästa fråga →</button></span></div>
-    <p class="kbd">Enter ger nästa fråga.</p></div>`;
+    const pos=i=>q.sel.indexOf(i);
+    body=`<div class="qcard" style="--pc:var(--ink)"><div class="qmeta"><span>Rätt ordning</span></div><div class="q">Tryck i tidsordning, äldst först</div>
+    <div class="ord">${q.items.map(i=>{const e=E[i],s=pos(i);const c=q.done?(q.truth[s]===i||E[q.truth[s]].y0===e.y0?' ri':' wr'):'';return `<button class="btn${s>=0?' sel':''}${c}" data-ord="${i}" ${q.done?'disabled':''}><span class="n">${s>=0?s+1:''}</span><span>${esc(e.t)}</span>${q.done?`<span class="y">${esc(e.d)}</span>`:''}</button>`}).join('')}</div>
+    ${q.done?`<div class="fb"><b class="${q.ok?'ok':'bad'}">${q.ok?'Rätt ordning!':'Rätt ordning är:'}</b><p>${q.truth.map((i,j)=>`${j+1}. ${esc(E[i].d)}: ${esc(E[i].t)}`).join('<br>')}</p></div>`:(q.sel.length?`<p class="tip"><button class="btn" id="undo">Ångra</button></p>`:'')}</div>`;
   }
-  const n=$('nq');if(Q.done&&n)n.focus({preventScroll:true});
+  const nextb=q.done?`<div class="qbar"><span></span><button class="btn pri" id="nq">Nästa →</button></div>`:'';
+  app.innerHTML=top+body+nextb;const qc=app.querySelector('.qcard');if(qc&&S.anim!==S.i){qc.classList.add('new');S.anim=S.i}
+  $('quit').onclick=()=>{S.qs=S.qs.slice(0,S.res.length);S.i=S.res.length;render()};
+  if($('rev'))$('rev').onclick=reveal;
+  if($('hintb'))$('hintb').onclick=()=>{q.hint=true;ova()};
+  if($('undo'))$('undo').onclick=()=>{q.sel.pop();ova()};
+  if($('nq')){$('nq').onclick=nextQ;$('nq').focus({preventScroll:true})}
 }
-function answerYear(y){if(!Q||Q.done)return;Q.ans=y;Q.done=true;const ok=y===Q.e.y0;sc.n++;if(ok)sc.r++;mark(Q.e.i,ok);progress();drawQ()}
-function pickOrd(i){if(!Q||Q.done||Q.sel.includes(i))return;Q.sel.push(i);
-  if(Q.sel.length===4){Q.done=true;const sorted=[...Q.items].sort((a,b)=>a.y0-b.y0||a.i-b.i);
-    Q.ok=sorted.every((e,j)=>Q.sel[j]===e.i||e.y0===E[Q.sel[j]].y0);
-    sc.n++;if(Q.ok)sc.r++;for(const e of Q.items)mark(e.i,Q.ok||sorted.indexOf(e)===Q.sel.indexOf(e.i));progress()}
-  drawQ()}
-
-/* events */
-document.addEventListener('click',ev=>{
-  const t=ev.target.closest('button');if(!t)return;
-  if(t.dataset.era!==undefined){st.era=+t.dataset.era;st.year='';Q=null;render();return}
-  if(t.dataset.know!==undefined){const i=+t.dataset.know;M[i]=known(i)?{s:0,w:(M[i]?.w||0)}:{s:2,w:0};render();return}
-  if(t.dataset.i!==undefined){const i=+t.dataset.i;open=open===i?-1:i;list();const b=document.querySelector(`[data-i="${i}"]`);b&&b.focus({preventScroll:true});return}
-  if(t.dataset.opt){answerYear(+t.dataset.opt);return}
-  if(t.dataset.ord){pickOrd(+t.dataset.ord);return}
-  if(t.id==='nq'){next();return}
-  if(t.id==='undo'){Q.sel.pop();drawQ();return}
+function reveal(){const q=S.qs[S.i];if(q.t==='flash'&&!q.rev){q.rev=true;ova()}}
+function done(ok,ids){S.res.push(ok);if(!ok)ids.forEach(i=>S.missed.add(i));head()}
+function nextQ(){S.i++;prepQ();ova();scrollTo({top:0})}
+function rate(g){const q=S.qs[S.i];if(q.t!=='flash'||!q.rev)return;mark(q.e.i,g,true);done(g>0,[q.e.i]);if(g===0)S.missed.add(q.e.i);nextQ()}
+function answer(v){const q=S.qs[S.i];if(q.done)return;q.done=true;q.ans=v;
+  if(q.t==='year'){const ok=v===q.e.y0;mark(q.e.i,ok?2:0);done(ok,[q.e.i])}
+  if(q.t==='cause'){const ok=v===q.l.b;mark(q.l.b,ok?2:0);done(ok,[q.l.b])}
+  ova()}
+function pickOrd(i){const q=S.qs[S.i];if(q.done||q.sel.includes(i))return;q.sel.push(i);
+  if(q.sel.length===q.items.length){q.done=true;q.ok=q.sel.every((x,j)=>x===q.truth[j]||E[x].y0===E[q.truth[j]].y0);
+    q.sel.forEach((x,j)=>mark(x,(x===q.truth[j]||E[x].y0===E[q.truth[j]].y0)?2:0));done(q.ok,q.ok?[]:q.truth.filter((x,j)=>q.sel[j]!==x))}
+  ova()}
+/* wiring */
+function render(){head();save();if(st.view==='las')las();else if(st.view==='samband')samband();else ova()}
+function go(v){st.view=v;try{history.replaceState(null,'','#'+v)}catch(_){}render();scrollTo({top:0})}
+document.querySelector('nav').addEventListener('click',ev=>{const b=ev.target.closest('[data-v]');if(b)go(b.dataset.v)});
+app.addEventListener('click',ev=>{
+  const t=ev.target.closest('button');if(!t)return;const d=t.dataset;
+  if(d.era!==undefined){st.era=+d.era;st.year='';render()}
+  else if(d.i!==undefined){const i=+d.i;open=open===i?-1:i;list();const b=app.querySelector(`[data-i="${i}"]`);b&&b.focus({preventScroll:true})}
+  else if(d.know!==undefined){const i=+d.know;M[i]=known(i)?{b:0,t:Date.now(),w:M[i]?.w||0}:{b:2,t:Date.now(),w:0};save();head();list()}
+  else if(d.gochain!==undefined){st.chain=+d.gochain;go('samband')}
+  else if(d.chain!==undefined){st.chain=+d.chain;render();scrollTo({top:0})}
+  else if(d.start){if(st.view!=='ova'){st.view='ova';try{history.replaceState(null,'','#ova')}catch(_){}}startS(d.start);scrollTo({top:0})}
+  else if(d.opt)answer(+d.opt);
+  else if(d.cause)answer(+d.cause);
+  else if(d.rate)rate(+d.rate);
+  else if(d.ord)pickOrd(+d.ord);
 });
-const setView=v=>{st.view=v;try{history.replaceState(null,'',v==='qz'?'#forhor':'#tidslinje')}catch(_){}render()};
-$('tTl').onclick=()=>setView('tl');$('tQz').onclick=()=>setView('qz');
-$('mYear').onclick=()=>{st.mode='year';Q=null;render()};$('mOrd').onclick=()=>{st.mode='ord';Q=null;render()};
-$('fYear').onchange=e=>{st.year=e.target.value;Q=null;render()};
-let qt;$('fQ').oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{st.q=e.target.value.trim();Q=null;render()},150)};
-$('fKey').onclick=()=>{st.key=!st.key;Q=null;render()};
-$('fNew').onclick=()=>{st.fresh=!st.fresh;Q=null;render()};
-$('fHide').onclick=()=>{st.hide=!st.hide;render()};
-$('clr').onclick=()=>{Object.assign(st,{era:-1,year:'',q:'',key:false,fresh:false});render()};
 document.addEventListener('keydown',ev=>{
-  if(st.view!=='qz'||!Q||ev.target.matches('input,select'))return;
-  if(Q.t==='year'&&!Q.done&&/^[1-4]$/.test(ev.key)){answerYear(Q.opts[+ev.key-1])}
-  else if(Q.done&&ev.key==='Enter'){ev.preventDefault();next()}
+  if(st.view!=='ova'||!S||ev.target.matches('input,select'))return;const q=S.qs[S.i];if(!q)return;
+  if(q.t==='flash'){if(!q.rev&&(ev.key===' '||ev.key==='Enter')){ev.preventDefault();reveal()}else if(q.rev&&/^[1-3]$/.test(ev.key))rate(+ev.key-1)}
+  else if(!q.done&&/^[1-4]$/.test(ev.key)&&q.opts){const o=q.opts[+ev.key-1];if(o!==undefined)answer(q.t==='year'?o:o.i)}
+  else if(q.done&&ev.key==='Enter'&&ev.target.id!=='nq'){ev.preventDefault();nextQ()}
 });
+addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(['las','samband','ova'].includes(v)&&v!==st.view){st.view=v;render()}});
 render();
 }
 </script>
